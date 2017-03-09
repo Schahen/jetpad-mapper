@@ -1,9 +1,12 @@
 package jetbrains.jetpad.processor.gwt;
 
+import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class UiGwtNodeResolver extends NodeResolver<Boolean> {
+import java.util.List;
+
+public class UiGwtNodeResolver extends NodeResolver<List<FieldData>> {
 
   private Node sourceNode;
   private Node targetNode;
@@ -14,11 +17,11 @@ public class UiGwtNodeResolver extends NodeResolver<Boolean> {
   }
 
   @Override
-  public Boolean resolve() {
+  public List<FieldData> resolve() {
     return resolve(sourceNode, targetNode);
   }
 
-  public Boolean resolve(Node sourceNode, Node targetNode) {
+  public List<FieldData> resolve(Node sourceNode, Node targetNode) {
     NodeList nodes = sourceNode.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
       Node node = nodes.item(i);
@@ -30,7 +33,7 @@ public class UiGwtNodeResolver extends NodeResolver<Boolean> {
         resolve(node, importedNode);
       }
     }
-    return true;
+    return null;
   }
 
 }
