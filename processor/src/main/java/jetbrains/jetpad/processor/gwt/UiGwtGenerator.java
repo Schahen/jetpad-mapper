@@ -1,14 +1,11 @@
 package jetbrains.jetpad.processor.gwt;
 
-import org.w3c.dom.Attr;
+import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.util.List;
 
 
 public class UiGwtGenerator {
@@ -77,20 +75,18 @@ public class UiGwtGenerator {
     }
   }
 
-  public void generate(File xmlFile, OutputStream outputStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+  public List<FieldData<Element>> generate(File xmlFile, OutputStream outputStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
     Element rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
 
     Document gwtDoc = createGwtDocument();
 
-    processNodes(rootElement, gwtDoc.getDocumentElement());
+    List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
     toOutputStream(outputStream, gwtDoc);
-  }
 
-  private void processNodes(Node sourceNode, Node targetNode) {
-    new UiGwtNodeResolver(sourceNode, targetNode).resolve();
+    return fieldData;
   }
 
 }

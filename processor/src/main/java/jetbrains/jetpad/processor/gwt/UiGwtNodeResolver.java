@@ -1,12 +1,16 @@
 package jetbrains.jetpad.processor.gwt;
 
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
+import jetbrains.jetpad.processor.gwt.metadata.GwtFieldData;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UiGwtNodeResolver extends NodeResolver<List<FieldData>> {
+public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
 
   private Node sourceNode;
   private Node targetNode;
@@ -17,23 +21,34 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData>> {
   }
 
   @Override
-  public List<FieldData> resolve() {
+  public List<FieldData<Element>> resolve() {
     return resolve(sourceNode, targetNode);
   }
 
-  public List<FieldData> resolve(Node sourceNode, Node targetNode) {
+  public List<FieldData<Element>> resolve(Node sourceNode, Node targetNode) {
     NodeList nodes = sourceNode.getChildNodes();
+    List<FieldData<Element>> fieldDatas = new ArrayList<>();
     for (int i = 0; i < nodes.getLength(); i++) {
       Node node = nodes.item(i);
       if (node.getNodeType() == Node.TEXT_NODE) {
         new TextNodeResolver(node, targetNode).resolve();
       } else
       if (node.getNodeType() == Node.ELEMENT_NODE) {
+        NamedNodeMap attributes = node.getAttributes();
+
+        Node fieldAttr = attributes.getNamedItem("__field");
+        boolean hasFieldAttr = fieldAttr != null;
+
+        if (hasFieldAttr) {
+          fieldDatas.add(new GwtFieldData<Element>(Element.class));
+        }
+
         Node importedNode = new DomResolver(node, targetNode).resolve();
         resolve(node, importedNode);
       }
     }
-    return null;
+
+    return fieldDatas;
   }
 
 }
