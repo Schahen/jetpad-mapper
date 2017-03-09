@@ -19,6 +19,7 @@
 
     <module>mapper</module>
     <module>model</module>
+    <module>processor</module>
     <module>gwt-util</module>
 
     <module>util/test</module>

@@ -1,0 +1,13 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder">
+  SOMETHING IS OFF
+  <h1>HEY!</h1>
+  <ul>
+    <li class="classA classB">a</li>
+    <li id="id">b</li>
+    <li>
+      <ol>
+        <li>even more deeper</li>
+      </ol>
+    </li>
+  </ul>
+</ui:UiBinder>
