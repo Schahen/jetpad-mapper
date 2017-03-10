@@ -1,8 +1,9 @@
 package jetbrains.jetpad.processor.gwt;
 
+import com.google.gwt.dom.client.Element;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -50,7 +51,7 @@ public class UiGwtGenerator {
   private Document createGwtDocument() throws ParserConfigurationException {
     Document outDoc = createDocument();
 
-    Element outRoot = outDoc.createElement( "ui:UiBinder");
+    org.w3c.dom.Element outRoot = outDoc.createElement( "ui:UiBinder");
     //<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     outRoot.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:ui", "urn:ui:com.google.gwt.uibinder");
 
@@ -77,7 +78,7 @@ public class UiGwtGenerator {
 
   public List<FieldData<Element>> generate(File xmlFile, OutputStream outputStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
-    Element rootElement = inDoc.getDocumentElement();
+    Node rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
 
     Document gwtDoc = createGwtDocument();

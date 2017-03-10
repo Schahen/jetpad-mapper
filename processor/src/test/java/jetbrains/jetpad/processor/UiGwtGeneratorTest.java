@@ -1,11 +1,11 @@
 package jetbrains.jetpad.processor;
 
+import com.google.gwt.dom.client.Element;
 import jetbrains.jetpad.processor.gwt.UiGwtGenerator;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import jetbrains.jetpad.test.BaseTestCase;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 

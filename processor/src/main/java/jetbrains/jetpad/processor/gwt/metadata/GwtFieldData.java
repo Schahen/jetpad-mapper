@@ -1,18 +1,25 @@
 package jetbrains.jetpad.processor.gwt.metadata;
 
-import org.w3c.dom.Element;
 
+import com.google.gwt.dom.client.Element;
 
 public class GwtFieldData<T extends Element> implements FieldData<T> {
 
   private Class<T> klass;
+  private String name;
 
-  public GwtFieldData(Class<T> klass) {
+  public GwtFieldData(String name, Class<T> klass) {
+    this.name = name;
     this.klass = klass;
   }
 
   @Override
   public Class<T> getElementClass() {
     return this.klass;
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 }

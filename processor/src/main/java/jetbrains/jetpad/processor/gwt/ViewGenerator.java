@@ -1,9 +1,9 @@
 package jetbrains.jetpad.processor.gwt;
 
+import com.google.gwt.dom.client.Element;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
-import org.w3c.dom.Element;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
@@ -18,10 +18,12 @@ public class ViewGenerator {
   }
 
   public void generate(Appendable out) throws IOException {
-    TypeSpec viewClass = TypeSpec
-        .classBuilder("SomeView")
-        .addModifiers(Modifier.PUBLIC)
-        .build();
+    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder("SomeView").addModifiers(Modifier.PUBLIC);
+    for (FieldData<Element> fieldDataRecord : fieldData) {
+      typeSpecBuilder.addField(fieldDataRecord.getElementClass(), fieldDataRecord.getName(), Modifier.PUBLIC);
+    }
+
+    TypeSpec viewClass = typeSpecBuilder.build();
 
     JavaFile javaFile = JavaFile
         .builder("some.very.important", viewClass)
