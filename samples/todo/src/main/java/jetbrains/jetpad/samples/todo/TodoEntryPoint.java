@@ -25,7 +25,7 @@ import jetbrains.jetpad.samples.todo.model.TodoListItem;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-@Jetpad("jetbrains.jetpad.samples.todo.templates:debug.jetpad.xml")
+@Jetpad("jetbrains.jetpad.samples.todo.templates:TodoExperimental")
 public class TodoEntryPoint implements EntryPoint {
   @Override
   public void onModuleLoad() {

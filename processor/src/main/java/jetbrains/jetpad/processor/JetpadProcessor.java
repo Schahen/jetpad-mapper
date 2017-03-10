@@ -19,6 +19,7 @@ import javax.tools.JavaFileManager;
 import javax.tools.StandardLocation;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,15 +64,31 @@ public class JetpadProcessor extends AbstractProcessor {
 
       String[] fragments = annotation.value().split(":");
       String packageName = fragments[0];
-      String relativeName = fragments[1];
+      String name = fragments[1];
+      String templateName = name + ".jetpad.xml";
 
-      FileObject templatePath = getResource(StandardLocation.SOURCE_PATH, packageName, relativeName);
+
+      FileObject templatePath = getResource(StandardLocation.SOURCE_PATH, packageName, templateName);
 
       if (templatePath != null) {
-        UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
+        UiGwtGenerator uiGwtGenerator = new UiGwtGenerator(packageName, name);
 
         try {
+          ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+          ByteArrayOutputStream uiXmlOutputStream = new ByteArrayOutputStream();
+
+          //uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream);
           uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), System.out, System.out);
+
+
+          String className = name + "View";
+          System.out.println("===========");
+          System.out.println("===========");
+          System.out.println(className);
+          System.out.println("===========");
+          System.out.println("===========");
+          //FileObject resource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, val);
+
         } catch (ParserConfigurationException e) {
           e.printStackTrace();
         } catch (SAXException e) {

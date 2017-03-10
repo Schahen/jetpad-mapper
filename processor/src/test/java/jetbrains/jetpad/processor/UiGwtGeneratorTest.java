@@ -24,7 +24,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
   @Test
   public void mimimalDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/Minimal.jeptad.xml");
-    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
@@ -36,7 +36,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
   @Test
   public void simpleHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SimpleHtml.jetpad.xml");
-    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
@@ -49,7 +49,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
   @Test
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");
-    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 

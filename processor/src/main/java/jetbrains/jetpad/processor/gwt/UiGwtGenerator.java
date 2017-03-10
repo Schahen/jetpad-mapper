@@ -27,6 +27,14 @@ import java.util.List;
 
 public class UiGwtGenerator {
 
+  String packageName;
+  String classNamePrefix;
+
+  public UiGwtGenerator(String packageName, String classNamePrefix) {
+    this.packageName = packageName;
+    this.classNamePrefix = classNamePrefix;
+  }
+
   private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     documentBuilderFactory.setNamespaceAware(true);
@@ -86,7 +94,7 @@ public class UiGwtGenerator {
 
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
-    new ViewGenerator(fieldData).generate("some.very.important", "SomeGWTView", new PrintStream(viewStream));
+    new ViewGenerator(fieldData).generate(packageName, classNamePrefix  + "View", new PrintStream(viewStream));
 
     toOutputStream(outputStream, gwtDoc);
 
