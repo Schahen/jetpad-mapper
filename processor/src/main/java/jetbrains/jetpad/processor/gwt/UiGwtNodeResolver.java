@@ -25,13 +25,17 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
     return resolve(sourceNode, targetNode);
   }
 
+  private boolean isFieldDataNode(Node node) {
+    if (node != null) {
+      return node.getNodeName().equals("__field");
+    }
+    return false;
+  }
+
   private FieldData<Element> fetchFieldData(Node node) {
     NamedNodeMap attributes = node.getAttributes();
 
-    Node fieldAttr = attributes.getNamedItem("__field");
-    boolean hasFieldAttr = fieldAttr != null;
-
-    if (hasFieldAttr) {
+    if (isFieldDataNode(node.getFirstChild())) {
       return new GwtFieldData<Element>(Element.class);
     }
 
