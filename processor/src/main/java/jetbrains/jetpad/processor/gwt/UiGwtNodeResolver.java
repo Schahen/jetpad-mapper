@@ -33,8 +33,6 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
   }
 
   private FieldData<Element> fetchFieldData(Node node) {
-    NamedNodeMap attributes = node.getAttributes();
-
     if (isFieldDataNode(node.getFirstChild())) {
       return new GwtFieldData<Element>(Element.class);
     }
