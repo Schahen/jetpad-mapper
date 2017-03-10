@@ -34,19 +34,21 @@ public class ViewGenerator {
     for (FieldData<Element> fieldDataRecord : fieldData) {
       typeSpecBuilder
           .addField(
-              FieldSpec.builder(innerClass, uiInterfaceName)
-                  .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                  .initializer("GWT.create($T.class)", innerClass)
-                  .build()
-          )
-          .addMethod(MethodSpec.constructorBuilder().addStatement("setElement(ourUiBinder.createAndBindUi(this))").build())
-          .addField(
               FieldSpec.builder(fieldDataRecord.getElementClass(), fieldDataRecord.getName())
                   .addAnnotation(UiField.class)
                   .addModifiers(Modifier.PUBLIC)
                   .build()
           );
     }
+
+    typeSpecBuilder
+        .addField(
+            FieldSpec.builder(innerClass, uiInterfaceName)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                .initializer("GWT.create($T.class)", innerClass)
+                .build()
+        )
+        .addMethod(MethodSpec.constructorBuilder().addStatement("setElement(ourUiBinder.createAndBindUi(this))").build());
 
     typeSpecBuilder.superclass(BaseWithElement.class);
 
