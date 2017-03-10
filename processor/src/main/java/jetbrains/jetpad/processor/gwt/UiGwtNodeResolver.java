@@ -51,13 +51,15 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
         new TextNodeResolver(node, targetNode).resolve();
       } else
       if (node.getNodeType() == Node.ELEMENT_NODE) {
-        FieldData<Element> fieldData = fetchFieldData(node);
-        if (fieldData != null) {
-          fieldDatas.add(new GwtFieldData<Element>(Element.class));
-        }
+        if (!isFieldDataNode(node)) {
+          FieldData<Element> fieldData = fetchFieldData(node);
+          if (fieldData != null) {
+            fieldDatas.add(new GwtFieldData<Element>(Element.class));
+          }
 
-        Node importedNode = new DomResolver(node, targetNode).resolve();
-        resolve(node, importedNode);
+          Node importedNode = new DomResolver(node, targetNode).resolve();
+          resolve(node, importedNode);
+        }
       }
     }
 

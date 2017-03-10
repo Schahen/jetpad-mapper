@@ -54,6 +54,10 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
 
     assertEquals("field data is found", 1, fieldData.size());
+
+    assertEquals("html node should be translated as is",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/UiFields.ui.xml").toFile()),
+        byteArrayOutputStream.toString());
   }
 
 }
