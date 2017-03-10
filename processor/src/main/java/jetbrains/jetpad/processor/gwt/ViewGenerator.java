@@ -2,12 +2,14 @@ package jetbrains.jetpad.processor.gwt;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.BaseElement;
+import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 import jetbrains.jetpad.mapper.gwt.BaseWithElement;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
@@ -15,6 +17,7 @@ import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ViewGenerator {
 
@@ -52,7 +55,10 @@ public class ViewGenerator {
 
     typeSpecBuilder.superclass(BaseWithElement.class);
 
-    TypeSpec.Builder innerTypeSpec = TypeSpec.interfaceBuilder(uiInterfaceName);
+    TypeSpec.Builder innerTypeSpec = TypeSpec
+        .interfaceBuilder(uiInterfaceName)
+        .addSuperinterface(ParameterizedTypeName.get(ClassName.get(UiBinder.class), ClassName.get(Element.class), outerClass));
+
     typeSpecBuilder.addType(innerTypeSpec.build());
 
     TypeSpec viewClass = typeSpecBuilder.build();
