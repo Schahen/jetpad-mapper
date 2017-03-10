@@ -1,5 +1,6 @@
 package jetbrains.jetpad.processor.gwt;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.BaseElement;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -46,9 +47,9 @@ public class ViewGenerator {
 
     typeSpecBuilder
         .addField(
-            FieldSpec.builder(innerClass, uiInterfaceName)
+            FieldSpec.builder(innerClass, "ourUiBinder")
                 .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                .initializer("GWT.create($T.class)", innerClass)
+                .initializer("$T.create($T.class)", GWT.class, innerClass)
                 .build()
         )
         .addMethod(MethodSpec.constructorBuilder().addStatement("setElement(ourUiBinder.createAndBindUi(this))").build());
