@@ -26,7 +26,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/Minimal.jeptad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
+    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
     assertEquals("<root/> should generate empty UI binder",
         "<ui:UiBinder xmlns:ui=\"urn:ui:com.google.gwt.uibinder\"/>",
@@ -38,7 +38,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SimpleHtml.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
+    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
     assertEquals("html node should be translated as is",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleHtml.ui.xml").toFile()),
@@ -51,7 +51,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
+    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
     assertEquals("field data is found", 1, fieldData.size());
 

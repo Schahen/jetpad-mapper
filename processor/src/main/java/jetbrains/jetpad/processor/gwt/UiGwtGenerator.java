@@ -20,6 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.StringReader;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class UiGwtGenerator {
     }
   }
 
-  public List<FieldData<Element>> generate(File xmlFile, OutputStream outputStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+  public List<FieldData<Element>> generate(File xmlFile, OutputStream outputStream, OutputStream viewStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
     Node rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
@@ -85,7 +86,7 @@ public class UiGwtGenerator {
 
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
-    new ViewGenerator(fieldData).generate("some.very.important", "SomeGWTView", System.out);
+    new ViewGenerator(fieldData).generate("some.very.important", "SomeGWTView", new PrintStream(viewStream));
 
     toOutputStream(outputStream, gwtDoc);
 

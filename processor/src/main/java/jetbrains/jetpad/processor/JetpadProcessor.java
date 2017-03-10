@@ -71,7 +71,7 @@ public class JetpadProcessor extends AbstractProcessor {
         UiGwtGenerator uiGwtGenerator = new UiGwtGenerator();
 
         try {
-          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), System.out);
+          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), System.out, System.out);
         } catch (ParserConfigurationException e) {
           e.printStackTrace();
         } catch (SAXException e) {
