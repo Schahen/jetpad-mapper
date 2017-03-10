@@ -44,6 +44,13 @@
       <artifactId>guava-gwt</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>jetbrains.jetpad.processor</groupId>
+      <artifactId>processor</artifactId>
+      <version>1.1-SNAPSHOT</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
