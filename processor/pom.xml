@@ -46,6 +46,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.squareup/javapoet -->
+    <dependency>
+      <groupId>com.squareup</groupId>
+      <artifactId>javapoet</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
     <dependency>
       <scope>test</scope>

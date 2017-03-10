@@ -25,6 +25,19 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
     return resolve(sourceNode, targetNode);
   }
 
+  private FieldData<Element> fetchFieldData(Node node) {
+    NamedNodeMap attributes = node.getAttributes();
+
+    Node fieldAttr = attributes.getNamedItem("__field");
+    boolean hasFieldAttr = fieldAttr != null;
+
+    if (hasFieldAttr) {
+      return new GwtFieldData<Element>(Element.class);
+    }
+
+    return null;
+  }
+
   public List<FieldData<Element>> resolve(Node sourceNode, Node targetNode) {
     NodeList nodes = sourceNode.getChildNodes();
     List<FieldData<Element>> fieldDatas = new ArrayList<>();
@@ -34,12 +47,8 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
         new TextNodeResolver(node, targetNode).resolve();
       } else
       if (node.getNodeType() == Node.ELEMENT_NODE) {
-        NamedNodeMap attributes = node.getAttributes();
-
-        Node fieldAttr = attributes.getNamedItem("__field");
-        boolean hasFieldAttr = fieldAttr != null;
-
-        if (hasFieldAttr) {
+        FieldData<Element> fieldData = fetchFieldData(node);
+        if (fieldData != null) {
           fieldDatas.add(new GwtFieldData<Element>(Element.class));
         }
 

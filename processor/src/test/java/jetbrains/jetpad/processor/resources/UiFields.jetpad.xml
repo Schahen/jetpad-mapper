@@ -1,6 +1,8 @@
 <root>
   SOMETHING IS OFF
-  <h1 __field="title">HEY!</h1>
+  <h1 __field="title">
+    HEY!
+  </h1>
   <ul>
     <li class="classA classB">a</li>
     <li id="id">b</li>
