@@ -6,6 +6,7 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
@@ -21,15 +22,11 @@ public class ViewGenerator {
     this.fieldData = fieldData;
   }
 
-  public void generate(Appendable out) throws IOException {
-    String className = "SomeView";
-    String packageName = "some.very.important";
+  public void generate(String packageName, String className, Appendable out) throws IOException {
     String uiInterfaceName = className + "UiBinder";
-
 
     ClassName outerClass = ClassName.get(packageName, className);
     ClassName innerClass = outerClass.nestedClass(uiInterfaceName);
-
 
     TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
     for (FieldData<Element> fieldDataRecord : fieldData) {
@@ -40,6 +37,7 @@ public class ViewGenerator {
                   .initializer("GWT.create($T.class)", innerClass)
                   .build()
           )
+          .addMethod(MethodSpec.constructorBuilder().addStatement("setElement(ourUiBinder.createAndBindUi(this))").build())
           .addField(
               FieldSpec.builder(fieldDataRecord.getElementClass(), fieldDataRecord.getName())
                   .addAnnotation(UiField.class)
@@ -48,16 +46,8 @@ public class ViewGenerator {
           );
     }
 
-    /*
-    interface TodoListItemViewUiBinder extends UiBinder<LIElement, TodoListItemView> {
-    private static final TodoListItemViewUiBinder ourUiBinder = GWT.create(TodoListItemViewUiBinder.class);
-  }
-     */
 
     TypeSpec.Builder innerTypeSpec = TypeSpec.interfaceBuilder(uiInterfaceName);
-
-    //typeSpecBuilder.addField("")
-
     typeSpecBuilder.addType(innerTypeSpec.build());
 
     TypeSpec viewClass = typeSpecBuilder.build();

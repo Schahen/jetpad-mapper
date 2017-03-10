@@ -85,7 +85,7 @@ public class UiGwtGenerator {
 
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
-    new ViewGenerator(fieldData).generate(System.out);
+    new ViewGenerator(fieldData).generate("some.very.important", "SomeGWTView", System.out);
 
     toOutputStream(outputStream, gwtDoc);
 
