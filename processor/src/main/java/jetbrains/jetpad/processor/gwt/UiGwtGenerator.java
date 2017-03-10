@@ -69,7 +69,7 @@ public class UiGwtGenerator {
     return outDoc;
   }
 
-  private void toOutputStream(OutputStream outputStream, Document gwtDoc) throws TransformerException {
+  private void generateUiXml(OutputStream outputStream, Document gwtDoc) throws TransformerException {
     DOMSource source = new DOMSource(gwtDoc);
     StreamResult streamResult = new StreamResult(outputStream);
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -85,7 +85,15 @@ public class UiGwtGenerator {
     }
   }
 
-  public List<FieldData<Element>> generate(File xmlFile, OutputStream outputStream, OutputStream viewStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+  public String getViewClassName() {
+    return classNamePrefix  + "View";
+  }
+
+  public String getUiXmlName() {
+    return getViewClassName() + ".ui.xml";
+  }
+
+  public List<FieldData<Element>> generate(File xmlFile, OutputStream uiXmlStream, OutputStream viewStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
     Node rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
@@ -94,9 +102,9 @@ public class UiGwtGenerator {
 
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
-    new ViewGenerator(fieldData).generate(packageName, classNamePrefix  + "View", new PrintStream(viewStream));
+    new ViewGenerator(fieldData).generate(packageName, getViewClassName(), new PrintStream(viewStream));
 
-    toOutputStream(outputStream, gwtDoc);
+    generateUiXml(uiXmlStream, gwtDoc);
 
     return fieldData;
   }

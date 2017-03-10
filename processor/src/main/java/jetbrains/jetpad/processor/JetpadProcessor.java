@@ -22,6 +22,10 @@ import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
@@ -52,6 +56,12 @@ public class JetpadProcessor extends AbstractProcessor {
     messager.printMessage(Diagnostic.Kind.ERROR, message);
   }
 
+  private void writeOutputStream(FileObject resource, OutputStream outputStream) throws IOException {
+    Writer writer = resource.openWriter();
+    writer.write(outputStream.toString());
+    writer.close();
+  }
+
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     for (Element element: roundEnv.getElementsAnnotatedWith(Jetpad.class)) {
@@ -77,18 +87,13 @@ public class JetpadProcessor extends AbstractProcessor {
           ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
           ByteArrayOutputStream uiXmlOutputStream = new ByteArrayOutputStream();
 
-          //uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream);
-          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), System.out, System.out);
+          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream);
 
+          FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, uiGwtGenerator.getViewClassName() + ".java");
+          writeOutputStream(viewResource, viewOutputStream);
 
-          String className = name + "View";
-          System.out.println("===========");
-          System.out.println("===========");
-          System.out.println(className);
-          System.out.println("===========");
-          System.out.println("===========");
-          //FileObject resource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, val);
-
+          FileObject uiXmlResource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, uiGwtGenerator.getUiXmlName());
+          writeOutputStream(uiXmlResource, uiXmlOutputStream);
         } catch (ParserConfigurationException e) {
           e.printStackTrace();
         } catch (SAXException e) {
