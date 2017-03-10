@@ -18,12 +18,14 @@ package jetbrains.jetpad.samples.todo;
 import com.google.gwt.core.client.EntryPoint;
 import jetbrains.jetpad.mapper.Mapper;
 import jetbrains.jetpad.mapper.gwt.WithElement;
+import jetbrains.jetpad.processor.Jetpad;
 import jetbrains.jetpad.samples.todo.mapper.TodoListMapper;
 import jetbrains.jetpad.samples.todo.model.TodoList;
 import jetbrains.jetpad.samples.todo.model.TodoListItem;
 
 import static com.google.gwt.query.client.GQuery.$;
 
+@Jetpad("templates/test.jepad.xml")
 public class TodoEntryPoint implements EntryPoint {
   @Override
   public void onModuleLoad() {

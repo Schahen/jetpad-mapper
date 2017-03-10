@@ -43,10 +43,39 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava-gwt</artifactId>
     </dependency>
+
   </dependencies>
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>jetbrains.jetpad.processor</groupId>
+            <artifactId>processor</artifactId>
+            <version>1.1-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>process</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>generate-sources</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <processors>
+            <!-- list of processors to use -->
+            <processor>jetbrains.jetpad.processor.JetpadProcessor</processor>
+          </processors>
+        </configuration>
+      </plugin>
+
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
