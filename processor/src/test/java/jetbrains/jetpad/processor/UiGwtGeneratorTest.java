@@ -28,7 +28,9 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
 
-    assertEquals("<root/> should generate empty UI binder", byteArrayOutputStream.toString(), "<ui:UiBinder xmlns:ui=\"urn:ui:com.google.gwt.uibinder\"/>");
+    assertEquals("<root/> should generate empty UI binder",
+        "<ui:UiBinder xmlns:ui=\"urn:ui:com.google.gwt.uibinder\"/>",
+        byteArrayOutputStream.toString());
   }
 
   @Test
@@ -38,7 +40,9 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
 
-    assertEquals("html node should be translated as is", byteArrayOutputStream.toString(), FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleHtml.ui.xml").toFile()));
+    assertEquals("html node should be translated as is",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleHtml.ui.xml").toFile()),
+        byteArrayOutputStream.toString());
   }
 
 
@@ -49,7 +53,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream);
 
-    assertEquals("field data is found", fieldData.size(), 1);
+    assertEquals("field data is found", 1, fieldData.size());
   }
 
 }
