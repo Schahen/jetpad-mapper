@@ -1,6 +1,7 @@
 package jetbrains.jetpad.processor.gwt;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.BaseElement;
 import com.google.gwt.uibinder.client.UiField;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
@@ -8,6 +9,7 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+import jetbrains.jetpad.mapper.gwt.BaseWithElement;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;
@@ -46,6 +48,7 @@ public class ViewGenerator {
           );
     }
 
+    typeSpecBuilder.superclass(BaseWithElement.class);
 
     TypeSpec.Builder innerTypeSpec = TypeSpec.interfaceBuilder(uiInterfaceName);
     typeSpecBuilder.addType(innerTypeSpec.build());
