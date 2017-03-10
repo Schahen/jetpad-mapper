@@ -3,6 +3,7 @@ package jetbrains.jetpad.processor.gwt;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiField;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
@@ -21,9 +22,24 @@ public class ViewGenerator {
   }
 
   public void generate(Appendable out) throws IOException {
-    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder("SomeView").addModifiers(Modifier.PUBLIC);
+    String className = "SomeView";
+    String packageName = "some.very.important";
+    String uiInterfaceName = className + "UiBinder";
+
+
+    ClassName outerClass = ClassName.get(packageName, className);
+    ClassName innerClass = outerClass.nestedClass(uiInterfaceName);
+
+
+    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
     for (FieldData<Element> fieldDataRecord : fieldData) {
       typeSpecBuilder
+          .addField(
+              FieldSpec.builder(innerClass, uiInterfaceName)
+                  .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                  .initializer("GWT.create($T.class)", innerClass)
+                  .build()
+          )
           .addField(
               FieldSpec.builder(fieldDataRecord.getElementClass(), fieldDataRecord.getName())
                   .addAnnotation(UiField.class)
@@ -32,10 +48,22 @@ public class ViewGenerator {
           );
     }
 
+    /*
+    interface TodoListItemViewUiBinder extends UiBinder<LIElement, TodoListItemView> {
+    private static final TodoListItemViewUiBinder ourUiBinder = GWT.create(TodoListItemViewUiBinder.class);
+  }
+     */
+
+    TypeSpec.Builder innerTypeSpec = TypeSpec.interfaceBuilder(uiInterfaceName);
+
+    //typeSpecBuilder.addField("")
+
+    typeSpecBuilder.addType(innerTypeSpec.build());
+
     TypeSpec viewClass = typeSpecBuilder.build();
 
     JavaFile javaFile = JavaFile
-        .builder("some.very.important", viewClass)
+        .builder(packageName, viewClass)
         .build();
 
     javaFile.writeTo(out);
