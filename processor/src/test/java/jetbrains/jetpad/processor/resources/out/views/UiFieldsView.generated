@@ -1,0 +1,30 @@
+package org.jetbrains.jetpad;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import jetbrains.jetpad.mapper.gwt.BaseWithElement;
+
+public class SimpleHtmlView extends BaseWithElement {
+  private static final SimpleHtmlViewUiBinder ourUiBinder = GWT.create(SimpleHtmlViewUiBinder.class);
+
+  @UiField
+  public Element listItem;
+
+  @UiField
+  public Element checkbox;
+
+  @UiField
+  public Element text;
+
+  @UiField
+  public Element delete;
+
+  public SimpleHtmlView() {
+    setElement(ourUiBinder.createAndBindUi(this));
+  }
+
+  interface SimpleHtmlViewUiBinder extends UiBinder<Element, SimpleHtmlView> {
+  }
+}

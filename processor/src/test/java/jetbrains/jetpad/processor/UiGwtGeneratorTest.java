@@ -51,14 +51,20 @@ public class UiGwtGeneratorTest extends BaseTestCase {
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
+    ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream);
 
     assertEquals("field data is found", 4, fieldData.size());
 
     assertEquals("html node should be translated as is",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/UiFields.ui.xml").toFile()),
-        byteArrayOutputStream.toString());
+        uiOutputStream.toString());
+
+    ///Users/shabunc/job/my-jetpad-mapper/processor/src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated
+    assertEquals("view translatead correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated").toFile()),
+        viewOutputStream.toString());
   }
 
 }
