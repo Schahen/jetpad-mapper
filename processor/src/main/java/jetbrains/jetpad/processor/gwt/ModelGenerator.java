@@ -2,14 +2,18 @@ package jetbrains.jetpad.processor.gwt;
 
 import com.google.gwt.dom.client.Element;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 import jetbrains.jetpad.mapper.Mapper;
+import jetbrains.jetpad.model.property.Property;
+import jetbrains.jetpad.processor.gwt.metadata.BindingData;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class ModelGenerator {
@@ -29,11 +33,16 @@ public class ModelGenerator {
     TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(className)
         .addModifiers(Modifier.PUBLIC);
 
+    for (FieldData<Element> fieldDataRecord : fieldData) {
+      for (BindingData bindingData: fieldDataRecord.getBindingData()) {
+        bindingData.addField(modelClassBuilder);
+      }
+    }
 
-    TypeSpec modeClass = modelClassBuilder.build();
+    TypeSpec modelClass = modelClassBuilder.build();
 
     JavaFile javaFile = JavaFile
-        .builder(packageName, modeClass)
+        .builder(packageName, modelClass)
         .build();
 
     javaFile.writeTo(out);

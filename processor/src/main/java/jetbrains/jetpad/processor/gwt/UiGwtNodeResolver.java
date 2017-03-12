@@ -2,6 +2,7 @@ package jetbrains.jetpad.processor.gwt;
 
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import jetbrains.jetpad.processor.gwt.metadata.GwtFieldData;
+import jetbrains.jetpad.processor.gwt.metadata.bindings.InnerTextOfBindingData;
 import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -44,7 +45,16 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           e.printStackTrace();
         }
       }
-      return new GwtFieldData<Element>(attributes.getNamedItem("jetpad_field").getNodeValue(), clazz);
+      GwtFieldData<Element> jetpad_field = new GwtFieldData<>(attributes.getNamedItem("jetpad_field").getNodeValue(), clazz);
+
+      Node innerTextOf = attributes.getNamedItem("jetpad_model_innerTextOf");
+
+
+      if (innerTextOf != null) {
+        jetpad_field.addBinding(new InnerTextOfBindingData(innerTextOf.getNodeValue()));
+      }
+
+      return jetpad_field;
     }
 
     return null;
