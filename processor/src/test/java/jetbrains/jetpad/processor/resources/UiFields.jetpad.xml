@@ -1,15 +1,10 @@
 <root>
-  SOMETHING IS OFF
-  <h1><__field name="title"/>
-    HEY!
-  </h1>
-  <ul>
-    <li class="classA classB">a</li>
-    <li id="id">b</li>
-    <li>
-      <ol>
-        <li>even more deeper</li>
-      </ol>
-    </li>
-  </ul>
+  <li><__field name="listItem"/>
+    <div class="view">
+      <input class="toggle" type="checkbox"><__field name="checkbox"/>
+        <label><__field name="text"/></label>
+        <button class="destroy"><__field name="delete"/></button>
+      </input>
+    </div>
+  </li>
 </root>

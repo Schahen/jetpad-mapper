@@ -5,6 +5,7 @@ import jetbrains.jetpad.processor.gwt.UiGwtGenerator;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import jetbrains.jetpad.test.BaseTestCase;
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -53,7 +54,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
 
-    assertEquals("field data is found", 1, fieldData.size());
+    assertEquals("field data is found", 4, fieldData.size());
 
     assertEquals("html node should be translated as is",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/UiFields.ui.xml").toFile()),
