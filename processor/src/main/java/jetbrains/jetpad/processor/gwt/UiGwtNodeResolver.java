@@ -67,6 +67,7 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           importedNode.setAttribute("ui:field", fieldData.getName());
           importedNode.removeAttribute("jetpad_field");
           importedNode.removeAttribute("jetpad_field_type");
+          importedNode.removeAttribute("jetpad_model_innerTextOf");
         }
 
         fieldDatas.addAll(resolve(node, importedNode));

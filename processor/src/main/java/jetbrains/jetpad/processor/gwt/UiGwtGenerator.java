@@ -89,8 +89,12 @@ public class UiGwtGenerator {
     return classNamePrefix  + "View";
   }
 
-  public String getViewMapperName() {
+  public String getViewName() {
     return classNamePrefix  + "Mapper";
+  }
+
+  public String getModelName() {
+    return classNamePrefix  + "Model";
   }
 
   public String getUiXmlName() {
@@ -107,7 +111,8 @@ public class UiGwtGenerator {
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
     new ViewGenerator(fieldData).generate(packageName, getViewClassName(), new PrintStream(viewStream));
-    new MapperGenerator(fieldData).generate(packageName, getViewMapperName(), System.out);
+    new MapperGenerator(fieldData).generate(packageName, getViewName(), System.out);
+    new ModelGenerator(fieldData).generate(packageName, getModelName(), System.out);
 
     generateUiXml(uiXmlStream, gwtDoc);
 

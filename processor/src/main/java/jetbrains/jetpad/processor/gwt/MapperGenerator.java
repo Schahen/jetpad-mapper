@@ -24,10 +24,6 @@ public class MapperGenerator {
 
   public void generate(String packageName, String className, Appendable out) throws IOException {
 
-
-    System.out.println("---------------------------------------------");
-
-
     TypeVariableName targetType = TypeVariableName.get("T");
     TypeVariableName sourceType = TypeVariableName.get("S");
 
