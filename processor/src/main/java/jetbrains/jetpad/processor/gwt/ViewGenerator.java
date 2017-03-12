@@ -34,9 +34,9 @@ public class ViewGenerator {
     ClassName outerClass = ClassName.get(packageName, className);
     ClassName innerClass = outerClass.nestedClass(uiInterfaceName);
 
-    TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
+    TypeSpec.Builder viewSpecBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
     for (FieldData<Element> fieldDataRecord : fieldData) {
-      typeSpecBuilder
+      viewSpecBuilder
           .addField(
               FieldSpec.builder(fieldDataRecord.getElementClass(), fieldDataRecord.getName())
                   .addAnnotation(UiField.class)
@@ -45,7 +45,7 @@ public class ViewGenerator {
           );
     }
 
-    typeSpecBuilder
+    viewSpecBuilder
         .addField(
             FieldSpec.builder(innerClass, "ourUiBinder")
                 .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
@@ -57,15 +57,15 @@ public class ViewGenerator {
             .addModifiers(Modifier.PUBLIC)
             .build());
 
-    typeSpecBuilder.superclass(BaseWithElement.class);
+    viewSpecBuilder.superclass(BaseWithElement.class);
 
     TypeSpec.Builder innerTypeSpec = TypeSpec
         .interfaceBuilder(uiInterfaceName)
         .addSuperinterface(ParameterizedTypeName.get(ClassName.get(UiBinder.class), ClassName.get(Element.class), outerClass));
 
-    typeSpecBuilder.addType(innerTypeSpec.build());
+    viewSpecBuilder.addType(innerTypeSpec.build());
 
-    TypeSpec viewClass = typeSpecBuilder.build();
+    TypeSpec viewClass = viewSpecBuilder.build();
 
     JavaFile javaFile = JavaFile
         .builder(packageName, viewClass)
