@@ -1,7 +1,10 @@
 package org.jetbrains.jetpad;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.LabelElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import jetbrains.jetpad.mapper.gwt.BaseWithElement;
@@ -13,13 +16,13 @@ public class SimpleHtmlView extends BaseWithElement {
   public Element listItem;
 
   @UiField
-  public Element checkbox;
+  public InputElement checkbox;
 
   @UiField
-  public Element text;
+  public LabelElement text;
 
   @UiField
-  public Element delete;
+  public ButtonElement delete;
 
   public SimpleHtmlView() {
     setElement(ourUiBinder.createAndBindUi(this));
