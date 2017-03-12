@@ -1,9 +1,10 @@
 package jetbrains.jetpad.processor.gwt;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class DomResolver extends NodeResolver<Node> {
+public class DomResolver extends NodeResolver<Element> {
 
   private Node sourceNode;
   private Node targetNode;
@@ -14,10 +15,10 @@ public class DomResolver extends NodeResolver<Node> {
   }
 
   @Override
-  public Node resolve() {
+  public Element resolve() {
       Node importedNode = targetNode.getOwnerDocument().importNode(sourceNode, false);
       targetNode.appendChild(importedNode);
-      return importedNode;
+      return (Element)importedNode;
   }
 
 }
