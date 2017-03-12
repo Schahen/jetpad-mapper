@@ -1,0 +1,21 @@
+package org.jetbrains.jetpad;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import jetbrains.jetpad.mapper.gwt.BaseWithElement;
+
+public class SimpleNestedFieldView extends BaseWithElement {
+  private static final SimpleNestedFieldViewUiBinder ourUiBinder = GWT.create(SimpleNestedFieldViewUiBinder.class);
+
+  @UiField
+  public Element title;
+
+  public SimpleNestedFieldView() {
+    setElement(ourUiBinder.createAndBindUi(this));
+  }
+
+  interface SimpleNestedFieldViewUiBinder extends UiBinder<Element, SimpleNestedFieldView> {
+  }
+}

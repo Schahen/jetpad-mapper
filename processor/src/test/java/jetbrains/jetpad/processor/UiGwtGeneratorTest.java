@@ -46,6 +46,23 @@ public class UiGwtGeneratorTest extends BaseTestCase {
         byteArrayOutputStream.toString());
   }
 
+  @Test
+  public void simpleNestedField() throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SimpleNestedField.jetpad.xml");
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleNestedField");
+    ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream);
+
+    assertEquals("html node should be translated as is",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleNestedField.ui.xml").toFile()),
+        uiOutputStream.toString());
+
+    assertEquals("view translatead correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/SimpleNestedField.generated").toFile()),
+        viewOutputStream.toString());
+  }
+
 
   @Test
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
@@ -61,7 +78,6 @@ public class UiGwtGeneratorTest extends BaseTestCase {
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/UiFields.ui.xml").toFile()),
         uiOutputStream.toString());
 
-    ///Users/shabunc/job/my-jetpad-mapper/processor/src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated
     assertEquals("view translatead correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated").toFile()),
         viewOutputStream.toString());
