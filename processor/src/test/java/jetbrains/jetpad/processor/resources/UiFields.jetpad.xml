@@ -1,9 +1,9 @@
 <root>
-  <li><__field jetpad_field="listItem"/>
+  <li jetpad_field="listItem">
     <div class="view">
-      <input class="toggle" type="checkbox"><__field jetpad_field="checkbox" jetpad_field_type="InputElement"/>
-        <label><__field jetpad_field="text" jetpad_field_type="LabelElement"/></label>
-        <button class="destroy"><__field jetpad_field="delete" jetpad_field_type="ButtonElement"/></button>
+      <input class="toggle" type="checkbox" jetpad_field="checkbox" jetpad_field_type="InputElement">
+        <label jetpad_field="text" jetpad_field_type="LabelElement"/>
+        <button class="destroy" jetpad_field="delete" jetpad_field_type="ButtonElement"/>
       </input>
     </div>
   </li>

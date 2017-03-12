@@ -29,16 +29,12 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
   }
 
   private boolean isFieldDataNode(Node node) {
-    if (node != null) {
-      return node.getNodeName().equals("__field");
-    }
-    return false;
+    return node.getAttributes().getNamedItem("jetpad_field") != null;
   }
 
   private FieldData<Element> fetchFieldData(Node node) {
-    if (isFieldDataNode(node.getFirstChild())) {
-      Node fieldData = node.getFirstChild();
-      NamedNodeMap attributes = fieldData.getAttributes();
+    if (isFieldDataNode(node)) {
+      NamedNodeMap attributes = node.getAttributes();
       Class<Element> clazz = Element.class;
       Node type = attributes.getNamedItem("jetpad_field_type");
       if (type != null) {
@@ -63,18 +59,17 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
         new TextNodeResolver(node, targetNode).resolve();
       } else
       if (node.getNodeType() == Node.ELEMENT_NODE) {
-        if (!isFieldDataNode(node)) {
+        org.w3c.dom.Element importedNode = new DomResolver(node, targetNode).resolve();
 
-          org.w3c.dom.Element importedNode = new DomResolver(node, targetNode).resolve();
-
-          FieldData<Element> fieldData = fetchFieldData(node);
-          if (fieldData != null) {
-            fieldDatas.add(fieldData);
-            importedNode.setAttribute("ui:field", fieldData.getName());
-          }
-
-          fieldDatas.addAll(resolve(node, importedNode));
+        FieldData<Element> fieldData = fetchFieldData(node);
+        if (fieldData != null) {
+          fieldDatas.add(fieldData);
+          importedNode.setAttribute("ui:field", fieldData.getName());
+          importedNode.removeAttribute("jetpad_field");
+          importedNode.removeAttribute("jetpad_field_type");
         }
+
+        fieldDatas.addAll(resolve(node, importedNode));
       }
     }
 
