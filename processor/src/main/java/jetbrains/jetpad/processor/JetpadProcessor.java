@@ -67,16 +67,10 @@ public class JetpadProcessor extends AbstractProcessor {
     for (Element element: roundEnv.getElementsAnnotatedWith(Jetpad.class)) {
       Jetpad annotation = element.getAnnotation(Jetpad.class);
 
-      PackageElement packageElement = processingEnv.getElementUtils().getPackageOf(element);
-
-      //String packageName =  packageElement.getQualifiedName().toString();
-      //String pkgPath = packageName.replace(".", "/");
-
       String[] fragments = annotation.value().split(":");
       String packageName = fragments[0];
       String name = fragments[1];
       String templateName = name + ".jetpad.xml";
-
 
       FileObject templatePath = getResource(StandardLocation.SOURCE_PATH, packageName, templateName);
 
@@ -89,10 +83,10 @@ public class JetpadProcessor extends AbstractProcessor {
 
           uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream);
 
-          FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, uiGwtGenerator.getViewClassName() + ".java");
+          FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getViewClassName() + ".java");
           writeOutputStream(viewResource, viewOutputStream);
 
-          FileObject uiXmlResource = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, packageName, uiGwtGenerator.getUiXmlName());
+          FileObject uiXmlResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getUiXmlName());
           writeOutputStream(uiXmlResource, uiXmlOutputStream);
         } catch (ParserConfigurationException e) {
           e.printStackTrace();

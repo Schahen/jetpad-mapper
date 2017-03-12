@@ -22,6 +22,7 @@ import jetbrains.jetpad.processor.Jetpad;
 import jetbrains.jetpad.samples.todo.mapper.TodoListMapper;
 import jetbrains.jetpad.samples.todo.model.TodoList;
 import jetbrains.jetpad.samples.todo.model.TodoListItem;
+import jetbrains.jetpad.samples.todo.templates.TodoExperimentalView;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -34,7 +35,9 @@ public class TodoEntryPoint implements EntryPoint {
     Mapper<TodoList, ? extends WithElement> mapper = new TodoListMapper(model);
     mapper.attachRoot();
 
-    $("#wrapper").append(mapper.getTarget().getElement());
+    TodoExperimentalView view = new TodoExperimentalView();
+    //
+    $("#wrapper").append(view.getElement());
   }
 
   private TodoList createModel() {

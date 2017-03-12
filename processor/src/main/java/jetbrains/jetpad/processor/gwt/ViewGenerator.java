@@ -52,7 +52,10 @@ public class ViewGenerator {
                 .initializer("$T.create($T.class)", GWT.class, innerClass)
                 .build()
         )
-        .addMethod(MethodSpec.constructorBuilder().addStatement("setElement(ourUiBinder.createAndBindUi(this))").build());
+        .addMethod(MethodSpec.constructorBuilder()
+            .addStatement("setElement(ourUiBinder.createAndBindUi(this))")
+            .addModifiers(Modifier.PUBLIC)
+            .build());
 
     typeSpecBuilder.superclass(BaseWithElement.class);
 

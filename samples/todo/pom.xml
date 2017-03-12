@@ -58,6 +58,7 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
+        <version>3.2.0</version>
         <dependencies>
           <dependency>
             <groupId>jetbrains.jetpad.processor</groupId>
@@ -79,6 +80,9 @@
             <!-- list of processors to use -->
             <processor>jetbrains.jetpad.processor.JetpadProcessor</processor>
           </processors>
+          <!--<sources>-->
+              <!--<source>${project.build.directory}/generated-sources/wrappers</source>-->
+           <!--</sources>-->
         </configuration>
       </plugin>
 

@@ -1,5 +1,8 @@
 
 
 <root>
-  <h1>HEY</h1>
+  <span>
+    <h1>HEY</h1>
+    <marquee>HEY</marquee>
+  </span>
 </root>
