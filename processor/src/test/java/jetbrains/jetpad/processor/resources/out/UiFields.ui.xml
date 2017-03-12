@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder">
   SOMETHING IS OFF
-  <h1>
+  <h1 ui:field="title">
     HEY!
   </h1>
   <ul>

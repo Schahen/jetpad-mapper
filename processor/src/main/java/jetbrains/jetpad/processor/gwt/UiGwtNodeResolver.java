@@ -52,13 +52,15 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
       } else
       if (node.getNodeType() == Node.ELEMENT_NODE) {
         if (!isFieldDataNode(node)) {
+
+          org.w3c.dom.Element importedNode = new DomResolver(node, targetNode).resolve();
+          resolve(node, importedNode);
+
           FieldData<Element> fieldData = fetchFieldData(node);
           if (fieldData != null) {
             fieldDatas.add(fieldData);
+            importedNode.setAttribute("ui:field", fieldData.getName());
           }
-
-          Node importedNode = new DomResolver(node, targetNode).resolve();
-          resolve(node, importedNode);
         }
       }
     }
