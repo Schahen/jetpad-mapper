@@ -1,5 +1,5 @@
 <root>
   <div>
-    <h1><__field name="title"/></h1>
+    <h1><__field jetpad_field="title"/></h1>
   </div>
 </root>

@@ -40,7 +40,7 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
       Node fieldData = node.getFirstChild();
       NamedNodeMap attributes = fieldData.getAttributes();
       Class<Element> clazz = Element.class;
-      Node type = attributes.getNamedItem("type");
+      Node type = attributes.getNamedItem("jetpad_field_type");
       if (type != null) {
         try {
           clazz = (Class<Element>) Class.forName(String.format("com.google.gwt.dom.client.%s", type.getNodeValue()));
@@ -48,7 +48,7 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           e.printStackTrace();
         }
       }
-      return new GwtFieldData<Element>(attributes.getNamedItem("name").getNodeValue(), clazz);
+      return new GwtFieldData<Element>(attributes.getNamedItem("jetpad_field").getNodeValue(), clazz);
     }
 
     return null;
