@@ -1,6 +1,6 @@
 <root>
   <div>
-    <h1 jetpad_field="title" jetpad_bind="innerTextOf:title" onclick="pingMe" />
+    <h1 jetpad_field="title" jetpad_bind="innerTextOf:title hasClass:flag:has-border" onclick="pingMe" />
     <input type="checkbox" jetpad_field="flag" jetpad_field_type="InputElement" jetpad_bind="checkbox:flag"></input>
   </div>
 </root>

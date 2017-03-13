@@ -153,3 +153,7 @@ hr {
 		left: 8px;
 	}
 }
+
+.has-border {
+	border: 2px solid red;
+}
