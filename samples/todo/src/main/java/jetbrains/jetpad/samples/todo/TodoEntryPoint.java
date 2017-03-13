@@ -16,6 +16,9 @@
 package jetbrains.jetpad.samples.todo;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.TimeZone;
+import com.google.gwt.user.client.Timer;
 import jetbrains.jetpad.mapper.Mapper;
 import jetbrains.jetpad.mapper.gwt.WithElement;
 import jetbrains.jetpad.processor.Jetpad;
@@ -26,23 +29,40 @@ import jetbrains.jetpad.samples.todo.templates.TodoExperimentalMapper;
 import jetbrains.jetpad.samples.todo.templates.TodoExperimentalModel;
 import jetbrains.jetpad.samples.todo.templates.TodoExperimentalView;
 
+import java.util.Date;
+
 import static com.google.gwt.query.client.GQuery.$;
 
 @Jetpad("jetbrains.jetpad.samples.todo.templates:TodoExperimental")
 public class TodoEntryPoint implements EntryPoint {
   @Override
   public void onModuleLoad() {
-    TodoList model = createModel();
+    //TodoList model = createModel();
 
-    Mapper<TodoList, ? extends WithElement> mapper = new TodoListMapper(model);
-    mapper.attachRoot();
+    //Mapper<TodoList, ? extends WithElement> mapper = new TodoListMapper(model);
+    //mapper.attachRoot();
+
 
     TodoExperimentalView view = new TodoExperimentalView();
-    TodoExperimentalModel experimentalModel = new TodoExperimentalModel();
+    final TodoExperimentalModel experimentalModel = new TodoExperimentalModel();
+
+    experimentalModel.title.set("HEY YO!!!!!");
+
+    Timer t = new Timer() {
+      public void run() {
+        Date date = new Date();
+        DateTimeFormat dtf = DateTimeFormat.getFormat("yyyyMMddHHmmss");
+        String val = dtf.format(date, TimeZone.createTimeZone(0));
+        experimentalModel.title.set(val);
+      }
+    };
+
+    t.scheduleRepeating(1000);
 
     TodoExperimentalMapper<TodoExperimentalModel, TodoExperimentalView> todoExperimentalMapper = new
         TodoExperimentalMapper<>(experimentalModel, view);
 
+    todoExperimentalMapper.attachRoot();
     $("#wrapper").append(todoExperimentalMapper.getTarget().getElement());
   }
 
