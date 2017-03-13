@@ -85,11 +85,11 @@ public class UiGwtGenerator {
     }
   }
 
-  public String getViewClassName() {
+  public String getViewName() {
     return classNamePrefix  + "View";
   }
 
-  public String getViewName() {
+  public String getMapperName() {
     return classNamePrefix  + "Mapper";
   }
 
@@ -98,10 +98,10 @@ public class UiGwtGenerator {
   }
 
   public String getUiXmlName() {
-    return getViewClassName() + ".ui.xml";
+    return getViewName() + ".ui.xml";
   }
 
-  public List<FieldData<Element>> generate(File xmlFile, OutputStream uiXmlStream, OutputStream viewStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+  public List<FieldData<Element>> generate(File xmlFile, OutputStream uiXmlStream, OutputStream viewStream, OutputStream modelStream, OutputStream mapperStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
     Node rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
@@ -110,10 +110,10 @@ public class UiGwtGenerator {
 
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
-    new ViewGenerator(fieldData).generate(packageName, getViewClassName(), new PrintStream(viewStream));
-    new ModelGenerator(fieldData).generate(packageName, getModelName(), System.out);
+    new ViewGenerator(fieldData).generate(packageName, getViewName(), new PrintStream(viewStream));
+    new ModelGenerator(fieldData).generate(packageName, getModelName(), new PrintStream(modelStream));
 
-    new MapperGenerator(fieldData).generate(packageName, getViewName(), getModelName(), getViewClassName(), System.out);
+    new MapperGenerator(fieldData).generate(packageName, getMapperName(), getModelName(), getViewName(), new PrintStream(mapperStream));
 
 
     generateUiXml(uiXmlStream, gwtDoc);

@@ -27,7 +27,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/Minimal.jeptad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
+    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out, System.out, System.out);
 
     assertEquals("<root/> should generate empty UI binder",
         "<ui:UiBinder xmlns:ui=\"urn:ui:com.google.gwt.uibinder\"/>",
@@ -39,7 +39,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SimpleHtml.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out);
+    uiGwtGenerator.generate(testPath.toFile(), byteArrayOutputStream, System.out, System.out, System.out);
 
     assertEquals("html node should be translated as is",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleHtml.ui.xml").toFile()),
@@ -52,7 +52,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleNestedField");
     ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
     ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream);
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, System.out, System.out);
 
     assertEquals("html node should be translated as is",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SimpleNestedField.ui.xml").toFile()),
@@ -70,7 +70,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
     ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
     ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
-    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream);
+    List<FieldData<Element>> fieldData = uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, System.out, System.out);
 
     assertEquals("field data is found", 4, fieldData.size());
 

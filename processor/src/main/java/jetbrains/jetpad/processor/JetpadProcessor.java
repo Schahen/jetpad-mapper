@@ -1,6 +1,5 @@
 package jetbrains.jetpad.processor;
 
-import com.google.gwt.resources.client.ClientBundle;
 import jetbrains.jetpad.processor.gwt.UiGwtGenerator;
 import org.xml.sax.SAXException;
 
@@ -11,7 +10,6 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.FileObject;
@@ -20,13 +18,9 @@ import javax.tools.StandardLocation;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.Writer;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 
@@ -80,11 +74,19 @@ public class JetpadProcessor extends AbstractProcessor {
         try {
           ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
           ByteArrayOutputStream uiXmlOutputStream = new ByteArrayOutputStream();
+          ByteArrayOutputStream modelStream = new ByteArrayOutputStream();
+          ByteArrayOutputStream mapperStream = new ByteArrayOutputStream();
 
-          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream);
+          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
 
-          FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getViewClassName() + ".java");
+          FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getViewName() + ".java");
           writeOutputStream(viewResource, viewOutputStream);
+
+          FileObject modelResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getModelName() + ".java");
+          writeOutputStream(modelResource, modelStream);
+
+          FileObject mapperResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getMapperName() + ".java");
+          writeOutputStream(mapperResource, mapperStream);
 
           FileObject uiXmlResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getUiXmlName());
           writeOutputStream(uiXmlResource, uiXmlOutputStream);
