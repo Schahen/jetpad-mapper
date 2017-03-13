@@ -51,7 +51,7 @@ public class TodoEntryPoint implements EntryPoint {
     Timer t = new Timer() {
       public void run() {
         Date date = new Date();
-        DateTimeFormat dtf = DateTimeFormat.getFormat("yyyyMMddHHmmss");
+        DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy.MM.dd HH:mm:ss");
         String val = dtf.format(date, TimeZone.createTimeZone(0));
         experimentalModel.title.set(val);
       }

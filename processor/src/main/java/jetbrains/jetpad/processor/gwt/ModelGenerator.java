@@ -2,9 +2,11 @@ package jetbrains.jetpad.processor.gwt;
 
 import com.google.gwt.dom.client.Element;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import jetbrains.jetpad.processor.gwt.metadata.bindings.BindingData;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
+import jetbrains.jetpad.processor.gwt.metadata.events.EventData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
@@ -27,9 +29,14 @@ public class ModelGenerator {
     TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(className)
         .addModifiers(Modifier.PUBLIC);
 
+
     for (FieldData<Element> fieldDataRecord : fieldData) {
       for (BindingData bindingData: fieldDataRecord.getBindingData()) {
         bindingData.addField(modelClassBuilder);
+      }
+
+      for (EventData eventData : fieldDataRecord.getEventData()) {
+        eventData.addHandler(modelClassBuilder);
       }
     }
 
