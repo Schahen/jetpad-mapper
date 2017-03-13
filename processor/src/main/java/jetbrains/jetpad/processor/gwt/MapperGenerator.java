@@ -8,7 +8,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import jetbrains.jetpad.mapper.Mapper;
-import jetbrains.jetpad.processor.gwt.metadata.BindingData;
+import jetbrains.jetpad.processor.gwt.metadata.bindings.BindingData;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;

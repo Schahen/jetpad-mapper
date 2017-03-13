@@ -1,4 +1,4 @@
-package jetbrains.jetpad.processor.gwt.metadata;
+package jetbrains.jetpad.processor.gwt.metadata.bindings;
 
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;

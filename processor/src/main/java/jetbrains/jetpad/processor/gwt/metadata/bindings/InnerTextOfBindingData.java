@@ -8,7 +8,6 @@ import jetbrains.jetpad.mapper.Synchronizers;
 import jetbrains.jetpad.mapper.gwt.DomUtil;
 import jetbrains.jetpad.model.property.Property;
 import jetbrains.jetpad.model.property.ValueProperty;
-import jetbrains.jetpad.processor.gwt.metadata.BindingData;
 
 import javax.lang.model.element.Modifier;
 
