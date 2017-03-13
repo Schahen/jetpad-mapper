@@ -1,0 +1,7 @@
+<root>
+  <div>
+    <h1 jetpad_field="header" jetpad_model_innerTextOf="header"></h1>
+    <h2 jetpad_field="anotherHeader" jetpad_model_innerTextOf="header"></h2>
+    <h3 jetpad_field="thirdHeader" jetpad_model_innerTextOf="header"></h3>
+  </div>
+</root>

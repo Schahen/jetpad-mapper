@@ -65,6 +65,29 @@ public class UiGwtGeneratorTest extends BaseTestCase {
 
 
   @Test
+  public void SamePropertyMultipleFields() throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SamePropertyMultipleFields.jetpad.xml");
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SamePropertyMultipleFields");
+    ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream modelOutputStream = new ByteArrayOutputStream();
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, System.out);
+
+    //assertEquals("html node should be translated as is",
+    //    FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SamePropertyMultipleFields.ui.xml").toFile()),
+    //    uiOutputStream.toString());
+
+    assertEquals("view translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/SamePropertyMultipleFields.generated").toFile()),
+        viewOutputStream.toString());
+
+    assertEquals("model translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/models/SamePropertyMultipleFields.generated").toFile()),
+        modelOutputStream.toString());
+  }
+
+
+  @Test
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
@@ -78,7 +101,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/UiFields.ui.xml").toFile()),
         uiOutputStream.toString());
 
-    assertEquals("view translatead correctly",
+    assertEquals("view translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated").toFile()),
         viewOutputStream.toString());
   }
