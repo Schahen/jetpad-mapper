@@ -23,6 +23,16 @@ public class ModelGenerator {
      */
   private List<FieldData<Element>> fieldData;
 
+
+  private boolean hasEventsBinded() {
+    for (FieldData<Element> fieldDataRecord : fieldData) {
+      for (EventData eventData: fieldDataRecord.getEventData()) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   public ModelGenerator(List<FieldData<Element>> fieldData) {
     this.fieldData = fieldData;
   }
@@ -30,6 +40,10 @@ public class ModelGenerator {
   public void generate(String packageName, String className, Appendable out) throws IOException {
     TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(className)
         .addModifiers(Modifier.PUBLIC);
+
+    if (hasEventsBinded()) {
+      modelClassBuilder.addModifiers(Modifier.ABSTRACT);
+    }
 
     Set<String> createdFields = new HashSet<>();
     Set<String> createdHandlers = new HashSet<>();

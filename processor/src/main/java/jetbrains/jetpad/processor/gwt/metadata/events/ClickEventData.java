@@ -21,7 +21,7 @@ public class ClickEventData implements EventData {
   @Override
   public TypeSpec.Builder addHandler(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder addHandlerBuilder = MethodSpec.methodBuilder(getHandlerName());
-    addHandlerBuilder.addModifiers(Modifier.PUBLIC).returns(boolean.class).addStatement("return true");
+    addHandlerBuilder.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(boolean.class);
     typeSpec.addMethod(addHandlerBuilder.build());
     return typeSpec;
   }

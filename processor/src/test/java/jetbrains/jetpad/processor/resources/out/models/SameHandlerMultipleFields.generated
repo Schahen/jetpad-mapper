@@ -1,7 +1,5 @@
 package org.jetbrains.jetpad;
 
-public class SameHandlerMultipleFieldsModel {
-  public boolean pingMe() {
-    return true;
-  }
+public abstract class SameHandlerMultipleFieldsModel {
+  public abstract boolean pingMe();
 }
