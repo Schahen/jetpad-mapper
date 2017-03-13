@@ -73,16 +73,31 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream modelOutputStream = new ByteArrayOutputStream();
     uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, System.out);
 
-    //assertEquals("html node should be translated as is",
-    //    FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/SamePropertyMultipleFields.ui.xml").toFile()),
-    //    uiOutputStream.toString());
-
     assertEquals("view translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/SamePropertyMultipleFields.generated").toFile()),
         viewOutputStream.toString());
 
     assertEquals("model translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/models/SamePropertyMultipleFields.generated").toFile()),
+        modelOutputStream.toString());
+  }
+
+  @Test
+  @Ignore
+  public void SameHandlerMultipleFields() throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SameHandlerMultipleFields.jetpad.xml");
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SameHandlerMultipleFields");
+    ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream modelOutputStream = new ByteArrayOutputStream();
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, System.out);
+
+    assertEquals("view translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/SameHandlerMultipleFields.generated").toFile()),
+        viewOutputStream.toString());
+
+    assertEquals("model translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/models/SameHandlerMultipleFields.generated").toFile()),
         modelOutputStream.toString());
   }
 

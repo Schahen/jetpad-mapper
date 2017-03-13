@@ -1,0 +1,7 @@
+<root>
+  <div>
+    <h1 jetpad_field="header" onclick="pingMe"></h1>
+    <h2 jetpad_field="anotherHeader" onclick="pingMe"></h2>
+    <h3 jetpad_field="thirdHeader" onclick="pingMe"></h3>
+  </div>
+</root>

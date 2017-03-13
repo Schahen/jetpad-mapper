@@ -1,0 +1,27 @@
+package org.jetbrains.jetpad;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import jetbrains.jetpad.mapper.gwt.BaseWithElement;
+
+public class SameHandlerMultipleFieldsView extends BaseWithElement {
+  private static final SameHandlerMultipleFieldsViewUiBinder ourUiBinder = GWT.create(SameHandlerMultipleFieldsViewUiBinder.class);
+
+  @UiField
+  public Element header;
+
+  @UiField
+  public Element anotherHeader;
+
+  @UiField
+  public Element thirdHeader;
+
+  public SameHandlerMultipleFieldsView() {
+    setElement(ourUiBinder.createAndBindUi(this));
+  }
+
+  interface SameHandlerMultipleFieldsViewUiBinder extends UiBinder<Element, SameHandlerMultipleFieldsView> {
+  }
+}
