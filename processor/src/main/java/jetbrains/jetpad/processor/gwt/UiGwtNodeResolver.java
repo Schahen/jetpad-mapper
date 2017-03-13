@@ -50,10 +50,18 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
       GwtFieldData<Element> jetpad_field = new GwtFieldData<>(viewFieldName, clazz);
 
       // Resolve bindings
-      Node innerTextOf = attributes.getNamedItem("jetpad_model_innerTextOf");
-
-      if (innerTextOf != null) {
-        jetpad_field.addBinding(new InnerTextOfBindingData(innerTextOf.getNodeValue(), viewFieldName));
+      Node bindingsAttr = attributes.getNamedItem("jetpad_bind");
+      if (bindingsAttr != null) {
+        String[] bindings = bindingsAttr.getNodeValue().split("\\s+");
+        for (int i = 0, l = bindings.length; i < l; i++) {
+          String binding = bindings[i];
+          String[] bindingTokens = binding.split(":");
+          String bindingName = bindingTokens[0];
+          if (bindingName.equals("innerTextOf")) {
+            String modelParam = bindingTokens[1];
+            jetpad_field.addBinding(new InnerTextOfBindingData(modelParam, viewFieldName));
+          }
+        }
       }
 
       // Resolve events
@@ -86,7 +94,7 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           importedNode.setAttribute("ui:field", fieldData.getName());
           importedNode.removeAttribute("jetpad_field");
           importedNode.removeAttribute("jetpad_field_type");
-          importedNode.removeAttribute("jetpad_model_innerTextOf");
+          importedNode.removeAttribute("jetpad_binding");
           importedNode.removeAttribute("onclick");
         }
 
