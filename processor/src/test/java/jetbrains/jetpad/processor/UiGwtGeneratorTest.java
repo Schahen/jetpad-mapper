@@ -89,7 +89,9 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
     ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
     ByteArrayOutputStream modelOutputStream = new ByteArrayOutputStream();
-    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, System.out);
+    ByteArrayOutputStream mapperOutputStream = new ByteArrayOutputStream();
+
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, mapperOutputStream);
 
     assertEquals("view translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/SameHandlerMultipleFields.generated").toFile()),
@@ -98,6 +100,10 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     assertEquals("model translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/models/SameHandlerMultipleFields.generated").toFile()),
         modelOutputStream.toString());
+
+    assertEquals("model translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/mappers/SameHandlerMultipleFields.generated").toFile()),
+        mapperOutputStream.toString());
   }
 
 

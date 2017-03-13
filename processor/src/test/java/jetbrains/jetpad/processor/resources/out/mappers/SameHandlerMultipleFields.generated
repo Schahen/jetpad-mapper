@@ -1,0 +1,21 @@
+package org.jetbrains.jetpad;
+
+import com.google.gwt.query.client.Function;
+import com.google.gwt.query.client.GQuery;
+import com.google.gwt.user.client.Event;
+import java.lang.Override;
+import jetbrains.jetpad.mapper.Mapper;
+
+public class SameHandlerMultipleFieldsMapper<S extends SameHandlerMultipleFieldsModel, T extends SameHandlerMultipleFieldsView> extends Mapper<S, T> {
+  public SameHandlerMultipleFieldsMapper(S source, T target) {
+    super(source, target);
+    GQuery.$(getTarget().header).click(new Function(){@Override public boolean f(Event e) {return getSource().pingMe();}});
+    GQuery.$(getTarget().anotherHeader).click(new Function(){@Override public boolean f(Event e) {return getSource().pingMe();}});
+    GQuery.$(getTarget().thirdHeader).click(new Function(){@Override public boolean f(Event e) {return getSource().pingMe();}});
+  }
+
+  @Override
+  protected void registerSynchronizers(Mapper.SynchronizersConfiguration conf) {
+    super.registerSynchronizers(conf);
+  }
+}
