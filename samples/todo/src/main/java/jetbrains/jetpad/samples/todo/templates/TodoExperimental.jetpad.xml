@@ -1,8 +1,21 @@
-
-
 <root>
-  <span>
-    <h1>HEY</h1>
-    <marquee>HEY</marquee>
-  </span>
+  <li jetpad_field="listItem">
+    <div class="view">
+      <input class="toggle" type="checkbox" jetpad_field="checkbox" jetpad_field_type="InputElement">
+        <label jetpad_field="text" jetpad_field_type="LabelElement" jetpad_model_innerTextOf="title"/>
+        <button class="destroy" jetpad_field="delete" jetpad_field_type="ButtonElement"/>
+      </input>
+    </div>
+  </li>
 </root>
+
+
+<!--<h1 jetpad_field="title" jetpad_model_innerTextOf="title" />-->
+<!--<li ui:field="listItem">-->
+<!--<div class="view">-->
+  <!--<input class="toggle" ui:field="checkbox" type="checkbox">-->
+    <!--<label ui:field="text"></label>-->
+    <!--<button ui:field="delete" class="destroy"></button>-->
+  <!--</input>-->
+<!--</div>-->
+<!--</li>-->

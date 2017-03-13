@@ -37,6 +37,7 @@ public class MapperGenerator {
 
     mapperSpecBuilder.addMethod(MethodSpec
         .constructorBuilder()
+        .addModifiers(Modifier.PUBLIC)
         .addParameter(sourceType, "source")
         .addParameter(targetType, "target")
         .addStatement("super(source, target)")
