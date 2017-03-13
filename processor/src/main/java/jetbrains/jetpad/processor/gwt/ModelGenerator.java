@@ -32,6 +32,7 @@ public class ModelGenerator {
         .addModifiers(Modifier.PUBLIC);
 
     Set<String> createdFields = new HashSet<>();
+    Set<String> createdHandlers = new HashSet<>();
 
     for (FieldData<Element> fieldDataRecord : fieldData) {
       for (BindingData bindingData: fieldDataRecord.getBindingData()) {
@@ -44,7 +45,10 @@ public class ModelGenerator {
       }
 
       for (EventData eventData : fieldDataRecord.getEventData()) {
-        eventData.addHandler(modelClassBuilder);
+        if (!createdHandlers.contains(eventData.getHandlerName())) {
+          eventData.addHandler(modelClassBuilder);
+          createdHandlers.add(eventData.getHandlerName());
+        }
       }
     }
 
