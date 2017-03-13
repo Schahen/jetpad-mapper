@@ -2,6 +2,7 @@ package jetbrains.jetpad.processor.gwt.metadata;
 
 
 import com.google.gwt.dom.client.Element;
+import jetbrains.jetpad.processor.gwt.metadata.events.EventData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class GwtFieldData<T extends Element> implements FieldData<T> {
   private String name;
 
   private final List<BindingData> bindingDataList = new ArrayList<>();
+  private final List<EventData> eventDataList = new ArrayList<>();
 
   public boolean addBinding(BindingData bindingData) {
     return bindingDataList.add(bindingData);
@@ -35,5 +37,10 @@ public class GwtFieldData<T extends Element> implements FieldData<T> {
   @Override
   public List<BindingData> getBindingData() {
     return bindingDataList;
+  }
+
+  @Override
+  public List<EventData> getEventData() {
+    return eventDataList;
   }
 }

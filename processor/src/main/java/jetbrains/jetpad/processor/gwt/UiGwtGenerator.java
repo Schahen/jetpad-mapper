@@ -61,7 +61,6 @@ public class UiGwtGenerator {
     Document outDoc = createDocument();
 
     org.w3c.dom.Element outRoot = outDoc.createElement( "ui:UiBinder");
-    //<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     outRoot.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:ui", "urn:ui:com.google.gwt.uibinder");
 
     outDoc.appendChild(outRoot);

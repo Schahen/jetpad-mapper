@@ -1,5 +1,7 @@
 package jetbrains.jetpad.processor.gwt.metadata;
 
+import jetbrains.jetpad.processor.gwt.metadata.events.EventData;
+
 import java.util.List;
 
 public interface FieldData<T> {
@@ -7,4 +9,5 @@ public interface FieldData<T> {
    String getName();
 
    List<BindingData> getBindingData();
+   List<EventData> getEventData();
 }
