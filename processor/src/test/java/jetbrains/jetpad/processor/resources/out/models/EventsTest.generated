@@ -1,0 +1,5 @@
+package org.jetbrains.jetpad;
+
+public abstract class SameHandlerMultipleFieldsModel {
+  public abstract boolean pingItem1();
+}
