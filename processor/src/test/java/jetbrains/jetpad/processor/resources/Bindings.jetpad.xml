@@ -1,5 +1,6 @@
 <root>
   <div>
     <h1 jetpad_field="header" jetpad_bind="innerTextOf:header"></h1>
+    <input jetpad_field="flag" jetpad_field_type="InputElement" jetpad_bind="checkbox:flag"></input>
   </div>
 </root>

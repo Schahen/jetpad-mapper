@@ -14,5 +14,6 @@ public class BindingsMapper<S extends BindingsModel, T extends BindingsView> ext
   protected void registerSynchronizers(Mapper.SynchronizersConfiguration conf) {
     super.registerSynchronizers(conf);
     conf.add(Synchronizers.forPropsOneWay(getSource().header, DomUtil.innerTextOf(getTarget().header)));
+    conf.add(Synchronizers.forPropsTwoWay(getSource().flag, DomUtil.checkbox(getTarget().flag)));
   }
 }

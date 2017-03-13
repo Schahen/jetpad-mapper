@@ -2,6 +2,7 @@ package jetbrains.jetpad.processor.gwt;
 
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 import jetbrains.jetpad.processor.gwt.metadata.GwtFieldData;
+import jetbrains.jetpad.processor.gwt.metadata.bindings.CheckedBindingData;
 import jetbrains.jetpad.processor.gwt.metadata.bindings.InnerTextOfBindingData;
 import jetbrains.jetpad.processor.gwt.metadata.events.ClickEventData;
 import org.w3c.dom.Attr;
@@ -60,6 +61,9 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           if (bindingName.equals("innerTextOf")) {
             String modelParam = bindingTokens[1];
             jetpad_field.addBinding(new InnerTextOfBindingData(modelParam, viewFieldName));
+          } else if (bindingName.equals("checkbox")) {
+            String modelParam = bindingTokens[1];
+            jetpad_field.addBinding(new CheckedBindingData(modelParam, viewFieldName));
           }
         }
       }
