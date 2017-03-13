@@ -1,0 +1,18 @@
+package org.jetbrains.jetpad;
+
+import java.lang.Override;
+import jetbrains.jetpad.mapper.Mapper;
+import jetbrains.jetpad.mapper.Synchronizers;
+import jetbrains.jetpad.mapper.gwt.DomUtil;
+
+public class BindingsMapper<S extends BindingsModel, T extends BindingsView> extends Mapper<S, T> {
+  public BindingsMapper(S source, T target) {
+    super(source, target);
+  }
+
+  @Override
+  protected void registerSynchronizers(Mapper.SynchronizersConfiguration conf) {
+    super.registerSynchronizers(conf);
+    conf.add(Synchronizers.forPropsOneWay(getSource().header, DomUtil.innerTextOf(getTarget().header)));
+  }
+}

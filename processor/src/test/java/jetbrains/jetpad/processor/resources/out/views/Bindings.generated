@@ -1,0 +1,21 @@
+package org.jetbrains.jetpad;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import jetbrains.jetpad.mapper.gwt.BaseWithElement;
+
+public class BindingsView extends BaseWithElement {
+  private static final BindingsViewUiBinder ourUiBinder = GWT.create(BindingsViewUiBinder.class);
+
+  @UiField
+  public Element header;
+
+  public BindingsView() {
+    setElement(ourUiBinder.createAndBindUi(this));
+  }
+
+  interface BindingsViewUiBinder extends UiBinder<Element, BindingsView> {
+  }
+}

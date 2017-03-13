@@ -130,6 +130,31 @@ public class UiGwtGeneratorTest extends BaseTestCase {
         mapperOutputStream.toString());
   }
 
+
+  @Test
+  public void BindingsTest() throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/Bindings.jetpad.xml");
+    UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","Bindings");
+    ByteArrayOutputStream uiOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream viewOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream modelOutputStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream mapperOutputStream = new ByteArrayOutputStream();
+
+    uiGwtGenerator.generate(testPath.toFile(), uiOutputStream, viewOutputStream, modelOutputStream, mapperOutputStream);
+
+    assertEquals("view translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/Bindings.generated").toFile()),
+        viewOutputStream.toString());
+
+    assertEquals("model translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/models/Bindings.generated").toFile()),
+        modelOutputStream.toString());
+
+    assertEquals("model translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/mappers/Bindings.generated").toFile()),
+        mapperOutputStream.toString());
+  }
+
   @Test
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");

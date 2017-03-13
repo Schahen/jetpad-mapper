@@ -1,0 +1,9 @@
+package org.jetbrains.jetpad;
+
+import java.lang.String;
+import jetbrains.jetpad.model.property.Property;
+import jetbrains.jetpad.model.property.ValueProperty;
+
+public class BindingsModel {
+  public final Property<String> header = new ValueProperty<>("");
+}
