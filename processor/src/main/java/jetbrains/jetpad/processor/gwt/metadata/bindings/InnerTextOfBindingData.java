@@ -4,6 +4,8 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
+import jetbrains.jetpad.mapper.Synchronizers;
+import jetbrains.jetpad.mapper.gwt.DomUtil;
 import jetbrains.jetpad.model.property.Property;
 import jetbrains.jetpad.model.property.ValueProperty;
 import jetbrains.jetpad.processor.gwt.metadata.BindingData;
@@ -47,7 +49,7 @@ public class InnerTextOfBindingData implements BindingData
   @Override
   public MethodSpec.Builder addNewSynchronizer(MethodSpec.Builder methodBuilder) {
 
-    methodBuilder.addStatement("conf.add(Synchronizers.forPropsOneWay(getSource().$N, getTarget().$N))", getModelPropertyName(), getViewPropertyName());
+    methodBuilder.addStatement("conf.add($T.forPropsOneWay(getSource().$N, $T.innerTextOf(getTarget().$N)))", Synchronizers.class, getModelPropertyName(), DomUtil.class, getViewPropertyName());
 
     return methodBuilder;
   }

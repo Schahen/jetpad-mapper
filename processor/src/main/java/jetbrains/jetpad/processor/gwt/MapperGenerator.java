@@ -24,8 +24,8 @@ public class MapperGenerator {
 
   public void generate(String packageName, String className, String modeClassName, String viewClassName, Appendable out) throws IOException {
 
-    TypeVariableName targetType = TypeVariableName.get("S");
-    TypeVariableName sourceType = TypeVariableName.get("T");
+    TypeVariableName sourceType = TypeVariableName.get("S");
+    TypeVariableName targetType = TypeVariableName.get("T");
 
     ClassName modelClass = ClassName.get(packageName, modeClassName);
     ClassName viewClass = ClassName.get(packageName, viewClassName);
@@ -37,27 +37,16 @@ public class MapperGenerator {
 
     mapperSpecBuilder.addMethod(MethodSpec
         .constructorBuilder()
-        .addStatement("super(new $T(), new $T())", modelClass, viewClass)
-        .addModifiers(Modifier.PUBLIC)
-        .build());
-
-    mapperSpecBuilder.addMethod(MethodSpec
-        .constructorBuilder()
-        .addParameter(modelClass, "source")
-        .addParameter(viewClass, "target")
+        .addParameter(sourceType, "source")
+        .addParameter(targetType, "target")
         .addStatement("super(source, target)")
         .build());
 
 
-    mapperSpecBuilder.addMethod(MethodSpec
-        .constructorBuilder()
-        .addParameter(modelClass, "source")
-        .addStatement("super(source, new $T())", viewClass)
-        .build()
-    );
-
     MethodSpec.Builder registerSynchronizersMethodBuilder = MethodSpec
         .methodBuilder("registerSynchronizers")
+        .addModifiers(Modifier.PROTECTED)
+        .addAnnotation(Override.class)
         .addParameter(Mapper.SynchronizersConfiguration.class, "conf")
         .addStatement("super.registerSynchronizers(conf)");
 
