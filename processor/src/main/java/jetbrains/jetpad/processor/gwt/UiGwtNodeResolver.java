@@ -60,7 +60,7 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
 
       Node onclick = attributes.getNamedItem("onclick");
       if (onclick != null) {
-        jetpad_field.addEvent(new ClickEventData(onclick.getNodeValue()));
+        jetpad_field.addEvent(new ClickEventData(onclick.getNodeValue(), viewFieldName));
       }
 
       return jetpad_field;

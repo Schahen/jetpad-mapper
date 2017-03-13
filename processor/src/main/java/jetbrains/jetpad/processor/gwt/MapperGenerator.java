@@ -10,6 +10,7 @@ import com.squareup.javapoet.TypeVariableName;
 import jetbrains.jetpad.mapper.Mapper;
 import jetbrains.jetpad.processor.gwt.metadata.bindings.BindingData;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
+import jetbrains.jetpad.processor.gwt.metadata.events.EventData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
@@ -35,13 +36,12 @@ public class MapperGenerator {
         .superclass(ParameterizedTypeName.get(ClassName.get(Mapper.class), sourceType, targetType))
         .addModifiers(Modifier.PUBLIC);
 
-    mapperSpecBuilder.addMethod(MethodSpec
+    MethodSpec.Builder constructorBuilder = MethodSpec
         .constructorBuilder()
         .addModifiers(Modifier.PUBLIC)
         .addParameter(sourceType, "source")
         .addParameter(targetType, "target")
-        .addStatement("super(source, target)")
-        .build());
+        .addStatement("super(source, target)");
 
 
     MethodSpec.Builder registerSynchronizersMethodBuilder = MethodSpec
@@ -55,7 +55,13 @@ public class MapperGenerator {
       for (BindingData bindingData: fieldDataRecord.getBindingData()) {
         bindingData.addNewSynchronizer(registerSynchronizersMethodBuilder);
       }
+
+      for (EventData eventData : fieldDataRecord.getEventData()) {
+        eventData.addEventListener(constructorBuilder);
+      }
     }
+
+    mapperSpecBuilder.addMethod(constructorBuilder.build());
 
     mapperSpecBuilder.addMethod(registerSynchronizersMethodBuilder.build());
 

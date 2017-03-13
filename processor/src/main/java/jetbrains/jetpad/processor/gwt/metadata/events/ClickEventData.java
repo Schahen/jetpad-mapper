@@ -1,5 +1,7 @@
 package jetbrains.jetpad.processor.gwt.metadata.events;
 
+import com.google.gwt.query.client.Function;
+import com.google.gwt.query.client.GQuery;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
@@ -8,15 +10,17 @@ import javax.lang.model.element.Modifier;
 public class ClickEventData implements EventData {
 
   private String handlerName;
+  private String fieldName;
 
-  public ClickEventData(String handlerName) {
+  public ClickEventData(String handlerName, String fieldName) {
     this.handlerName = handlerName;
+    this.fieldName = fieldName;
   }
 
   @Override
   public TypeSpec.Builder addHandler(TypeSpec.Builder typeSpec) {
     MethodSpec.Builder addHandlerBuilder = MethodSpec.methodBuilder(getHandlerName());
-    addHandlerBuilder.addModifiers(Modifier.PUBLIC);
+    addHandlerBuilder.addModifiers(Modifier.PUBLIC).returns(boolean.class).addStatement("return true");
     typeSpec.addMethod(addHandlerBuilder.build());
     return typeSpec;
   }
@@ -27,7 +31,13 @@ public class ClickEventData implements EventData {
   }
 
   @Override
+  public String getFieldName() {
+    return fieldName;
+  }
+
+  @Override
   public MethodSpec.Builder addEventListener(MethodSpec.Builder methodSpecBuilder) {
-    return null;
+    methodSpecBuilder.addStatement("$T.$N(getTarget().$N).click(new $T(){@Override public boolean f(Event e) {return $N().$N()}}))", GQuery.class, "$", getFieldName(), Function.class, "getSource", getHandlerName());
+    return methodSpecBuilder;
   }
 }

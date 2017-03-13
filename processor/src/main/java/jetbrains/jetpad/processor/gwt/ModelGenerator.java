@@ -29,7 +29,6 @@ public class ModelGenerator {
     TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(className)
         .addModifiers(Modifier.PUBLIC);
 
-
     for (FieldData<Element> fieldDataRecord : fieldData) {
       for (BindingData bindingData: fieldDataRecord.getBindingData()) {
         bindingData.addField(modelClassBuilder);

@@ -5,6 +5,7 @@ import com.squareup.javapoet.TypeSpec;
 
 public interface EventData {
   String getHandlerName();
+  String getFieldName();
   TypeSpec.Builder addHandler(TypeSpec.Builder typeSpec);
   MethodSpec.Builder addEventListener(MethodSpec.Builder methodSpecBuilder);
 }
