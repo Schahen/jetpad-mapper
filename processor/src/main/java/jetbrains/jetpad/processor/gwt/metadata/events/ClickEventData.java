@@ -4,36 +4,11 @@ import com.google.gwt.query.client.Function;
 import com.google.gwt.query.client.GQuery;
 import com.google.gwt.user.client.Event;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
 
-import javax.lang.model.element.Modifier;
-
-public class ClickEventData implements EventData {
-
-  private String handlerName;
-  private String fieldName;
+public class ClickEventData extends AbstractEventData {
 
   public ClickEventData(String handlerName, String fieldName) {
-    this.handlerName = handlerName;
-    this.fieldName = fieldName;
-  }
-
-  @Override
-  public TypeSpec.Builder addHandler(TypeSpec.Builder typeSpec) {
-    MethodSpec.Builder addHandlerBuilder = MethodSpec.methodBuilder(getHandlerName());
-    addHandlerBuilder.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).returns(boolean.class);
-    typeSpec.addMethod(addHandlerBuilder.build());
-    return typeSpec;
-  }
-
-  @Override
-  public String getHandlerName() {
-    return handlerName;
-  }
-
-  @Override
-  public String getFieldName() {
-    return fieldName;
+    super(handlerName, fieldName);
   }
 
   @Override
