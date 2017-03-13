@@ -24,15 +24,15 @@ public class MapperGenerator {
 
   public void generate(String packageName, String className, String modeClassName, String viewClassName, Appendable out) throws IOException {
 
-    TypeVariableName targetType = TypeVariableName.get("T");
-    TypeVariableName sourceType = TypeVariableName.get("S");
+    TypeVariableName targetType = TypeVariableName.get("S");
+    TypeVariableName sourceType = TypeVariableName.get("T");
 
     ClassName modelClass = ClassName.get(packageName, modeClassName);
     ClassName viewClass = ClassName.get(packageName, viewClassName);
     TypeSpec.Builder mapperSpecBuilder = TypeSpec.classBuilder(className)
-        .addTypeVariable(targetType.withBounds(modelClass))
-        .addTypeVariable(sourceType.withBounds(viewClass))
-        .superclass(ParameterizedTypeName.get(ClassName.get(Mapper.class), targetType, sourceType))
+        .addTypeVariable(sourceType.withBounds(modelClass))
+        .addTypeVariable(targetType.withBounds(viewClass))
+        .superclass(ParameterizedTypeName.get(ClassName.get(Mapper.class), sourceType, targetType))
         .addModifiers(Modifier.PUBLIC);
 
     mapperSpecBuilder.addMethod(MethodSpec
