@@ -14,14 +14,21 @@ public class InnerTextOfBindingData implements BindingData
 {
 
   private String modelPropertyName;
+  private String viewPropertyName;
 
-  public InnerTextOfBindingData(String modelPropertyName) {
+  public InnerTextOfBindingData(String modelPropertyName, String viewPropertyName) {
     this.modelPropertyName = modelPropertyName;
+    this.viewPropertyName = viewPropertyName;
   }
 
   @Override
   public String getModelPropertyName() {
     return this.modelPropertyName;
+  }
+
+  @Override
+  public String getViewPropertyName() {
+    return viewPropertyName;
   }
 
   @Override
@@ -39,9 +46,10 @@ public class InnerTextOfBindingData implements BindingData
 
   @Override
   public MethodSpec.Builder addNewSynchronizer(MethodSpec.Builder methodBuilder) {
-    //conf.add(Synchronizers.forPropsTwoWay(getSource().text, editableTextOf(getTarget().text)));
-    //methodBuilder.addStatement("conf.add(Synchronizers.forPropsOneWay(getSource(), getTarget()))");
-    return null;
+
+    methodBuilder.addStatement("conf.add(Synchronizers.forPropsOneWay(getSource().$N, getTarget().$N))", getModelPropertyName(), getViewPropertyName());
+
+    return methodBuilder;
   }
 
 }

@@ -45,13 +45,14 @@ public class UiGwtNodeResolver extends NodeResolver<List<FieldData<Element>>> {
           e.printStackTrace();
         }
       }
-      GwtFieldData<Element> jetpad_field = new GwtFieldData<>(attributes.getNamedItem("jetpad_field").getNodeValue(), clazz);
+      String viewFieldName = attributes.getNamedItem("jetpad_field").getNodeValue();
+      GwtFieldData<Element> jetpad_field = new GwtFieldData<>(viewFieldName, clazz);
 
       Node innerTextOf = attributes.getNamedItem("jetpad_model_innerTextOf");
 
 
       if (innerTextOf != null) {
-        jetpad_field.addBinding(new InnerTextOfBindingData(innerTextOf.getNodeValue()));
+        jetpad_field.addBinding(new InnerTextOfBindingData(innerTextOf.getNodeValue(), viewFieldName));
       }
 
       return jetpad_field;

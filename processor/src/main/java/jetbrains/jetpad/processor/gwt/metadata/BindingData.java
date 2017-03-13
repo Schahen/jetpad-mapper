@@ -7,4 +7,5 @@ public interface BindingData {
   TypeSpec.Builder addField(TypeSpec.Builder typeSpecBuilder);
   MethodSpec.Builder addNewSynchronizer(MethodSpec.Builder methodBuilder);
   String getModelPropertyName();
+  String getViewPropertyName();
 }

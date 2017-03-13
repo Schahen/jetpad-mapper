@@ -8,6 +8,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import jetbrains.jetpad.mapper.Mapper;
+import jetbrains.jetpad.processor.gwt.metadata.BindingData;
 import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;
@@ -55,12 +56,18 @@ public class MapperGenerator {
         .build()
     );
 
-    mapperSpecBuilder.addMethod(MethodSpec
+    MethodSpec.Builder registerSynchronizersMethodBuilder = MethodSpec
         .methodBuilder("registerSynchronizers")
         .addParameter(Mapper.SynchronizersConfiguration.class, "conf")
-        .addCode("super.registerSynchronizers(conf)")
-        .build()
-    );
+        .addStatement("super.registerSynchronizers(conf)");
+
+    for (FieldData<Element> fieldDataRecord : fieldData) {
+      for (BindingData bindingData: fieldDataRecord.getBindingData()) {
+        bindingData.addNewSynchronizer(registerSynchronizersMethodBuilder);
+      }
+    }
+
+    mapperSpecBuilder.addMethod(registerSynchronizersMethodBuilder.build());
 
     TypeSpec mapperClass = mapperSpecBuilder.build();
 
