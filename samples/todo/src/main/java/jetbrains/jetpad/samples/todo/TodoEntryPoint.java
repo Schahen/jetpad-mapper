@@ -18,7 +18,10 @@ package jetbrains.jetpad.samples.todo;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.TimeZone;
+import com.google.gwt.query.client.Function;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import jetbrains.jetpad.mapper.Mapper;
 import jetbrains.jetpad.mapper.gwt.WithElement;
 import jetbrains.jetpad.processor.Jetpad;
@@ -44,7 +47,7 @@ public class TodoEntryPoint implements EntryPoint {
 
 
     TodoExperimentalView view = new TodoExperimentalView();
-    final TodoExperimentalModel experimentalModel = new TodoExperimentalModel();
+    final TodoExperimentalModel experimentalModel = new ModelWithEvents();
 
     experimentalModel.title.set("HEY YO!!!!!");
 
@@ -56,6 +59,7 @@ public class TodoEntryPoint implements EntryPoint {
         experimentalModel.title.set(val);
       }
     };
+
 
     t.scheduleRepeating(1000);
 

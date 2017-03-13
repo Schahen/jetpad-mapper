@@ -1,6 +1,8 @@
 
 <root>
-    <item property="checkbox"></item>
+    <div>
+        <h1 jetpad_field="title" jetpad_model_innerTextOf="title" onclick="pingMe" />
+    </div>
 </root>
 
 
