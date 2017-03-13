@@ -111,8 +111,10 @@ public class UiGwtGenerator {
     List<FieldData<Element>> fieldData =  new UiGwtNodeResolver(rootElement, gwtDoc.getDocumentElement()).resolve();
 
     new ViewGenerator(fieldData).generate(packageName, getViewClassName(), new PrintStream(viewStream));
-    new MapperGenerator(fieldData).generate(packageName, getViewName(), System.out);
     new ModelGenerator(fieldData).generate(packageName, getModelName(), System.out);
+
+    new MapperGenerator(fieldData).generate(packageName, getViewName(), getModelName(), getViewClassName(), System.out);
+
 
     generateUiXml(uiXmlStream, gwtDoc);
 

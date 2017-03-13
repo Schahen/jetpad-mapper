@@ -5,7 +5,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import jetbrains.jetpad.mapper.Mapper;
@@ -13,6 +12,7 @@ import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class MapperGenerator {
@@ -22,14 +22,14 @@ public class MapperGenerator {
     this.fieldData = fieldData;
   }
 
-  public void generate(String packageName, String className, Appendable out) throws IOException {
+  public void generate(String packageName, String className, String modeClassName, String viewClassName, Appendable out) throws IOException {
 
     TypeVariableName targetType = TypeVariableName.get("T");
     TypeVariableName sourceType = TypeVariableName.get("S");
 
-    TypeSpec.Builder mapperSpecBuilder = TypeSpec.classBuilder(className)
-        .addTypeVariable(targetType)
-        .addTypeVariable(sourceType)
+      TypeSpec.Builder mapperSpecBuilder = TypeSpec.classBuilder(className)
+        .addTypeVariable(targetType.withBounds(ClassName.get(packageName, modeClassName)))
+        .addTypeVariable(sourceType.withBounds(ClassName.get(packageName, viewClassName)))
         .superclass(ParameterizedTypeName.get(ClassName.get(Mapper.class), targetType, sourceType))
         .addModifiers(Modifier.PUBLIC);
 

@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 public class UiGwtGeneratorTest extends BaseTestCase {
 
   @Test
-  @Ignore
   public void mimimalDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/Minimal.jeptad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
@@ -36,7 +35,6 @@ public class UiGwtGeneratorTest extends BaseTestCase {
   }
 
   @Test
-  @Ignore
   public void simpleHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SimpleHtml.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
@@ -67,7 +65,6 @@ public class UiGwtGeneratorTest extends BaseTestCase {
 
 
   @Test
-  @Ignore
   public void UiHtmlDocument() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/UiFields.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SimpleHtml");
