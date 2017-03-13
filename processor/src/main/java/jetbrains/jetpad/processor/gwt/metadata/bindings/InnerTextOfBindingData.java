@@ -39,6 +39,8 @@ public class InnerTextOfBindingData implements BindingData
 
   @Override
   public MethodSpec.Builder addNewSynchronizer(MethodSpec.Builder methodBuilder) {
+    //conf.add(Synchronizers.forPropsTwoWay(getSource().text, editableTextOf(getTarget().text)));
+    //methodBuilder.addStatement("conf.add(Synchronizers.forPropsOneWay(getSource(), getTarget()))");
     return null;
   }
 

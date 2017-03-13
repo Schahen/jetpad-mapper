@@ -12,7 +12,6 @@ import jetbrains.jetpad.processor.gwt.metadata.FieldData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class MapperGenerator {
@@ -27,11 +26,19 @@ public class MapperGenerator {
     TypeVariableName targetType = TypeVariableName.get("T");
     TypeVariableName sourceType = TypeVariableName.get("S");
 
-      TypeSpec.Builder mapperSpecBuilder = TypeSpec.classBuilder(className)
-        .addTypeVariable(targetType.withBounds(ClassName.get(packageName, modeClassName)))
-        .addTypeVariable(sourceType.withBounds(ClassName.get(packageName, viewClassName)))
+    ClassName modelClass = ClassName.get(packageName, modeClassName);
+    ClassName viewClass = ClassName.get(packageName, viewClassName);
+    TypeSpec.Builder mapperSpecBuilder = TypeSpec.classBuilder(className)
+        .addTypeVariable(targetType.withBounds(modelClass))
+        .addTypeVariable(sourceType.withBounds(viewClass))
         .superclass(ParameterizedTypeName.get(ClassName.get(Mapper.class), targetType, sourceType))
         .addModifiers(Modifier.PUBLIC);
+
+    mapperSpecBuilder.addMethod(MethodSpec
+        .constructorBuilder()
+        .addStatement("super(new $T(), new $T())", modelClass, viewClass)
+        .addModifiers(Modifier.PUBLIC)
+        .build());
 
     mapperSpecBuilder.addMethod(MethodSpec
         .methodBuilder("registerSynchronizers")
