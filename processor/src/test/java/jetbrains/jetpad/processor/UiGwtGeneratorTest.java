@@ -65,7 +65,6 @@ public class UiGwtGeneratorTest extends BaseTestCase {
 
 
   @Test
-  @Ignore
   public void SamePropertyMultipleFields() throws IOException, SAXException, ParserConfigurationException, TransformerException {
     Path testPath = Paths.get("src/test/java/jetbrains/jetpad/processor/resources/SamePropertyMultipleFields.jetpad.xml");
     UiGwtGenerator uiGwtGenerator = new UiGwtGenerator("org.jetbrains.jetpad","SamePropertyMultipleFields");

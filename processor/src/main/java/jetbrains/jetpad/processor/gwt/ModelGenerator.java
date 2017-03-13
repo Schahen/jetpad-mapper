@@ -10,7 +10,9 @@ import jetbrains.jetpad.processor.gwt.metadata.events.EventData;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ModelGenerator {
   /*
@@ -29,9 +31,16 @@ public class ModelGenerator {
     TypeSpec.Builder modelClassBuilder = TypeSpec.classBuilder(className)
         .addModifiers(Modifier.PUBLIC);
 
+    Set<String> createdFields = new HashSet<>();
+
     for (FieldData<Element> fieldDataRecord : fieldData) {
       for (BindingData bindingData: fieldDataRecord.getBindingData()) {
-        bindingData.addField(modelClassBuilder);
+        if (createdFields.contains(bindingData.getModelPropertyName())) {
+          // TODO (shabunc): most probably will need to throw an exception when we trying to generate field with same name and differentType
+        } else {
+          bindingData.addField(modelClassBuilder);
+          createdFields.add(bindingData.getModelPropertyName());
+        }
       }
 
       for (EventData eventData : fieldDataRecord.getEventData()) {
