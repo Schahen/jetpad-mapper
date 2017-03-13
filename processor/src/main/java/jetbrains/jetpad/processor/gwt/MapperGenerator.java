@@ -41,6 +41,21 @@ public class MapperGenerator {
         .build());
 
     mapperSpecBuilder.addMethod(MethodSpec
+        .constructorBuilder()
+        .addParameter(modelClass, "source")
+        .addParameter(viewClass, "target")
+        .addStatement("super(source, target)")
+        .build());
+
+
+    mapperSpecBuilder.addMethod(MethodSpec
+        .constructorBuilder()
+        .addParameter(modelClass, "source")
+        .addStatement("super(source, new $T())", viewClass)
+        .build()
+    );
+
+    mapperSpecBuilder.addMethod(MethodSpec
         .methodBuilder("registerSynchronizers")
         .addParameter(Mapper.SynchronizersConfiguration.class, "conf")
         .addCode("super.registerSynchronizers(conf)")
