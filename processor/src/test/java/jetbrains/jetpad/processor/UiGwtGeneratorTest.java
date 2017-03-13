@@ -170,7 +170,7 @@ public class UiGwtGeneratorTest extends BaseTestCase {
         uiOutputStream.toString());
 
     assertEquals("view translated correctly",
-        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFieldsView.generated").toFile()),
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/views/UiFields.generated").toFile()),
         viewOutputStream.toString());
   }
 
