@@ -69,7 +69,7 @@
       <plugin>
         <groupId>org.shabunc.maven</groupId>
         <artifactId>processit</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1</version>
         <dependencies>
           <dependency>
             <groupId>jetbrains.jetpad.processor</groupId>
