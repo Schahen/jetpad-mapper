@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jetbrains.jetpad.processor</groupId>
   <artifactId>processor</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+
+  <repositories>
+    <repository>
+      <id>schahen-mvn-repo</id>
+      <url>https://raw.github.com/schahen/processit-maven-plugin/mvn-repo/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
 
   <licenses>
     <license>
@@ -85,5 +97,10 @@
     </dependency>
 
 
+    <dependency>
+      <groupId>org.shabunc.maven</groupId>
+      <artifactId>processit</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 </project>
