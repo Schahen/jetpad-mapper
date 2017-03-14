@@ -12,10 +12,10 @@
     <repository>
       <id>schahen-mvn-repo</id>
       <url>https://raw.github.com/schahen/processit-maven-plugin/mvn-repo/</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
+      <!--<snapshots>-->
+        <!--<enabled>true</enabled>-->
+        <!--<updatePolicy>never</updatePolicy>-->
+      <!--</snapshots>-->
     </repository>
   </repositories>
 
@@ -96,6 +96,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.5</version>
+    </dependency>
 
     <dependency>
       <groupId>org.shabunc.maven</groupId>
