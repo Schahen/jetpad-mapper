@@ -39,6 +39,7 @@ public class JetpadProcessitProcessor implements Processor {
   private void writeToResource(Path viewResource, ByteArrayOutputStream outputStream) throws IOException {
     viewResource.toFile().getParentFile().mkdirs();
     OutputStream fileOutputStream = Files.newOutputStream(viewResource, CREATE);
+    System.out.println(String.format("writing %s", viewResource.toString()));
     fileOutputStream.write(outputStream.toByteArray());
   }
 
@@ -63,16 +64,17 @@ public class JetpadProcessitProcessor implements Processor {
     try {
       uiGwtGenerator.generate(file, uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
 
-      Path viewResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getViewName() + ".java");
+      String pathToGeneratedSources = "target/generated-sources/apt";
+      Path viewResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getViewName() + ".java");
       writeToResource(viewResource, viewOutputStream);
 
-      Path modelResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getModelName() + ".java");
+      Path modelResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getModelName() + ".java");
       writeToResource(modelResource, modelStream);
 
-      Path mapperResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getMapperName() + ".java");
+      Path mapperResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getMapperName() + ".java");
       writeToResource(mapperResource, mapperStream);
 
-      Path uiXmlResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getUiXmlName());
+      Path uiXmlResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getUiXmlName());
       writeToResource(uiXmlResource, uiXmlOutputStream);
     } catch (ParserConfigurationException e) {
       e.printStackTrace();
