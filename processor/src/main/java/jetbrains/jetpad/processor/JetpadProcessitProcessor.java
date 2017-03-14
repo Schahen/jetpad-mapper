@@ -13,9 +13,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
+
+import static java.nio.file.StandardOpenOption.CREATE;
 
 public class JetpadProcessitProcessor implements Processor {
 
@@ -27,6 +33,13 @@ public class JetpadProcessitProcessor implements Processor {
     IOFileFilter filter = new SuffixFileFilter(extensions, IOCase.SENSITIVE);
     Iterator iter = FileUtils.iterateFiles(dir, filter, TrueFileFilter.INSTANCE);
     return iter;
+  }
+
+
+  private void writeToResource(Path viewResource, ByteArrayOutputStream outputStream) throws IOException {
+    viewResource.toFile().getParentFile().mkdirs();
+    OutputStream fileOutputStream = Files.newOutputStream(viewResource, CREATE);
+    fileOutputStream.write(outputStream.toByteArray());
   }
 
   @Override
@@ -49,7 +62,18 @@ public class JetpadProcessitProcessor implements Processor {
 
     try {
       uiGwtGenerator.generate(file, uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
-      System.out.println(uiGwtGenerator);
+
+      Path viewResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getViewName() + ".java");
+      writeToResource(viewResource, viewOutputStream);
+
+      Path modelResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getModelName() + ".java");
+      writeToResource(modelResource, modelStream);
+
+      Path mapperResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getMapperName() + ".java");
+      writeToResource(mapperResource, mapperStream);
+
+      Path uiXmlResource = Paths.get("target/generated-sources", packagePath, uiGwtGenerator.getUiXmlName());
+      writeToResource(uiXmlResource, uiXmlOutputStream);
     } catch (ParserConfigurationException e) {
       e.printStackTrace();
     } catch (SAXException e) {
