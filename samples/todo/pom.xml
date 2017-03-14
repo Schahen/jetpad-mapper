@@ -114,10 +114,9 @@
           </execution>
         </executions>
         <configuration>
-          <processors>
-            <!-- list of processors to use -->
-            <processor>jetbrains.jetpad.processor.JetpadProcessor</processor>
-          </processors>
+          <!--<processors>-->
+            <!--<processor>jetbrains.jetpad.processor.JetpadProcessor</processor>-->
+          <!--</processors>-->
           <!--<sources>-->
               <!--<source>${project.build.directory}/generated-sources/wrappers</source>-->
            <!--</sources>-->
