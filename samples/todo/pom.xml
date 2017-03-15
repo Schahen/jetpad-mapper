@@ -90,37 +90,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <version>3.2.0</version>
-        <dependencies>
-          <dependency>
-            <groupId>jetbrains.jetpad.processor</groupId>
-            <artifactId>processor</artifactId>
-            <version>1.1-SNAPSHOT</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>process</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-sources</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <!--<processors>-->
-            <!--<processor>jetbrains.jetpad.processor.JetpadProcessor</processor>-->
-          <!--</processors>-->
-          <!--<sources>-->
-              <!--<source>${project.build.directory}/generated-sources/wrappers</source>-->
-           <!--</sources>-->
-        </configuration>
-      </plugin>
-
-
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
       </plugin>

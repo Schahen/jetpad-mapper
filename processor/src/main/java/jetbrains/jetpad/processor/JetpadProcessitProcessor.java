@@ -26,6 +26,8 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 public class JetpadProcessitProcessor implements Processor {
 
+  private String generatedSourcePath;
+
   @Override
   public Iterator<File> getFiles() {
     File dir = new File("src/main/java");
@@ -47,9 +49,9 @@ public class JetpadProcessitProcessor implements Processor {
 
   @Override
   public void setProject(MavenProject mavenProject) {
-
+    generatedSourcePath = "target/generated-sources/apt";
+    mavenProject.addCompileSourceRoot(generatedSourcePath);
   }
-
 
   @Override
   public void process(File file) {
@@ -72,17 +74,16 @@ public class JetpadProcessitProcessor implements Processor {
     try {
       uiGwtGenerator.generate(file, uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
 
-      String pathToGeneratedSources = "target/generated-sources/apt";
-      Path viewResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getViewName() + ".java");
+      Path viewResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getViewName() + ".java");
       writeToResource(viewResource, viewOutputStream);
 
-      Path modelResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getModelName() + ".java");
+      Path modelResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getModelName() + ".java");
       writeToResource(modelResource, modelStream);
 
-      Path mapperResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getMapperName() + ".java");
+      Path mapperResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getMapperName() + ".java");
       writeToResource(mapperResource, mapperStream);
 
-      Path uiXmlResource = Paths.get(pathToGeneratedSources, packagePath, uiGwtGenerator.getUiXmlName());
+      Path uiXmlResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getUiXmlName());
       writeToResource(uiXmlResource, uiXmlOutputStream);
     } catch (ParserConfigurationException e) {
       e.printStackTrace();
