@@ -8,6 +8,7 @@ import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.shabunc.maven.Processor;
 import org.xml.sax.SAXException;
+import org.apache.maven.project.MavenProject;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -42,6 +43,13 @@ public class JetpadProcessitProcessor implements Processor {
     System.out.println(String.format("writing %s", viewResource.toString()));
     fileOutputStream.write(outputStream.toByteArray());
   }
+
+
+  @Override
+  public void setProject(MavenProject mavenProject) {
+
+  }
+
 
   @Override
   public void process(File file) {

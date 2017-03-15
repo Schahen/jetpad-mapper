@@ -14,16 +14,12 @@
     </license>
   </licenses>
 
-  <repositories>
-    <repository>
+  <pluginRepositories>
+    <pluginRepository>
       <id>schahen-mvn-repo</id>
       <url>https://raw.github.com/schahen/processit-maven-plugin/mvn-repo/</url>
-      <!--<snapshots>-->
-        <!--<enabled>true</enabled>-->
-        <!--<updatePolicy>never</updatePolicy>-->
-      <!--</snapshots>-->
-    </repository>
-  </repositories>
+    </pluginRepository>
+  </pluginRepositories>
 
   <parent>
     <groupId>jetbrains.jetpad.mapper</groupId>
@@ -69,7 +65,7 @@
       <plugin>
         <groupId>org.shabunc.maven</groupId>
         <artifactId>processit</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
         <dependencies>
           <dependency>
             <groupId>jetbrains.jetpad.processor</groupId>

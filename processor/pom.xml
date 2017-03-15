@@ -12,10 +12,6 @@
     <repository>
       <id>schahen-mvn-repo</id>
       <url>https://raw.github.com/schahen/processit-maven-plugin/mvn-repo/</url>
-      <!--<snapshots>-->
-      <!--<enabled>true</enabled>-->
-      <!--<updatePolicy>never</updatePolicy>-->
-      <!--</snapshots>-->
     </repository>
   </repositories>
 
@@ -106,7 +102,13 @@
     <dependency>
       <groupId>org.shabunc.maven</groupId>
       <artifactId>processit</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-utils</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
