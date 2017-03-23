@@ -70,9 +70,10 @@ public class JetpadProcessitProcessor implements Processor {
     ByteArrayOutputStream uiXmlOutputStream = new ByteArrayOutputStream();
     ByteArrayOutputStream modelStream = new ByteArrayOutputStream();
     ByteArrayOutputStream mapperStream = new ByteArrayOutputStream();
+    ByteArrayOutputStream eventHandlerStream = new ByteArrayOutputStream();
 
     try {
-      uiGwtGenerator.generate(file, uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
+      uiGwtGenerator.generate(file, uiXmlOutputStream, viewOutputStream, modelStream, eventHandlerStream, mapperStream);
 
       Path viewResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getViewName() + ".java");
       writeToResource(viewResource, viewOutputStream);

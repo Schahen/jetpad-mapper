@@ -76,8 +76,9 @@ public class JetpadProcessor extends AbstractProcessor {
           ByteArrayOutputStream uiXmlOutputStream = new ByteArrayOutputStream();
           ByteArrayOutputStream modelStream = new ByteArrayOutputStream();
           ByteArrayOutputStream mapperStream = new ByteArrayOutputStream();
+          ByteArrayOutputStream eventHandlerStream = new ByteArrayOutputStream();
 
-          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream, modelStream, mapperStream);
+          uiGwtGenerator.generate(Paths.get(templatePath.toUri()).toFile(), uiXmlOutputStream, viewOutputStream, modelStream, eventHandlerStream, mapperStream);
 
           FileObject viewResource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, packageName, uiGwtGenerator.getViewName() + ".java");
           writeOutputStream(viewResource, viewOutputStream);

@@ -102,7 +102,7 @@ public class UiGwtGenerator {
     return getViewName() + ".ui.xml";
   }
 
-  public List<FieldData<Element>> generate(File xmlFile, OutputStream uiXmlStream, OutputStream viewStream, OutputStream modelStream, OutputStream mapperStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+  public List<FieldData<Element>> generate(File xmlFile, OutputStream uiXmlStream, OutputStream viewStream, OutputStream modelStream, OutputStream eventHandlerStream, OutputStream mapperStream) throws ParserConfigurationException, SAXException, IOException, TransformerException {
     Document inDoc = parse(xmlFile);
     Node rootElement = inDoc.getDocumentElement();
     rootElement.normalize();
@@ -115,6 +115,7 @@ public class UiGwtGenerator {
     new ModelGenerator(fieldData).generate(packageName, getModelName(), new PrintStream(modelStream));
 
     new MapperGenerator(fieldData).generate(packageName, getMapperName(), getModelName(), getViewName(), new PrintStream(mapperStream));
+    new EventHandlerGenerator(fieldData).generate(packageName, getEventHandler(), getModelName(), new PrintStream(eventHandlerStream));
 
 
     generateUiXml(uiXmlStream, gwtDoc);
