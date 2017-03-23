@@ -96,6 +96,8 @@ public class UiGwtGenerator {
     return classNamePrefix  + "Model";
   }
 
+  public String getEventHandler() {return classNamePrefix + "EventHandler";}
+
   public String getUiXmlName() {
     return getViewName() + ".ui.xml";
   }

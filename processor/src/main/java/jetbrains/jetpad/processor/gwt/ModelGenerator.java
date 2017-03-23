@@ -1,6 +1,7 @@
 package jetbrains.jetpad.processor.gwt;
 
 import com.google.gwt.dom.client.Element;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -60,7 +61,7 @@ public class ModelGenerator {
 
       for (EventData eventData : fieldDataRecord.getEventData()) {
         if (!createdHandlers.contains(eventData.getHandlerName())) {
-          eventData.addHandler(modelClassBuilder);
+          eventData.addHandler(modelClassBuilder, ClassName.get(packageName, className));
           createdHandlers.add(eventData.getHandlerName());
         }
       }
