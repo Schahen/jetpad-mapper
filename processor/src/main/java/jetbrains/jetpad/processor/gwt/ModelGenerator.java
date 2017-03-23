@@ -57,13 +57,6 @@ public class ModelGenerator {
           createdFields.add(bindingData.getModelPropertyName());
         }
       }
-
-      for (EventData eventData : fieldDataRecord.getEventData()) {
-        if (!createdHandlers.contains(eventData.getHandlerName())) {
-          eventData.addHandler(modelClassBuilder, ClassName.get(packageName, className));
-          createdHandlers.add(eventData.getHandlerName());
-        }
-      }
     }
 
     TypeSpec modelClass = modelClassBuilder.build();

@@ -1,8 +1,4 @@
 package org.jetbrains.jetpad;
 
-import com.google.gwt.user.client.Event;
-
 public class SameHandlerMultipleFieldsModel {
-  public boolean pingItem1(SameHandlerMultipleFieldsModel model, Event evt) {
-  }
 }
