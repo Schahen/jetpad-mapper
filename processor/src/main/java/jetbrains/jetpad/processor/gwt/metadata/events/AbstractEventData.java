@@ -23,7 +23,7 @@ public abstract class AbstractEventData implements EventData {
     MethodSpec.Builder addHandlerBuilder = MethodSpec.methodBuilder(getHandlerName());
     addHandlerBuilder.addParameter(modelClassName, "model");
     addHandlerBuilder.addParameter(Event.class, "evt");
-    addHandlerBuilder.addModifiers(Modifier.PUBLIC).returns(boolean.class);
+    addHandlerBuilder.addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC).returns(boolean.class);
     typeSpec.addMethod(addHandlerBuilder.build());
     return typeSpec;
   }

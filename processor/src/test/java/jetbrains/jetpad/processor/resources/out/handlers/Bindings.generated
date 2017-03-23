@@ -1,4 +1,4 @@
 package org.jetbrains.jetpad;
 
-public class BindingsEventHandler {
+public abstract class BindingsEventHandler {
 }

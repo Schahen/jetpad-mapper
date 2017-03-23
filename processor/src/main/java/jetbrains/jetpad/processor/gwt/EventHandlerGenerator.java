@@ -23,7 +23,7 @@ public class EventHandlerGenerator {
 
   public void generate(String packageName, String className, String modelClassName, Appendable out) throws IOException {
     TypeSpec.Builder eventHandlerClassBuilder = TypeSpec.classBuilder(className)
-        .addModifiers(Modifier.PUBLIC);
+        .addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC);
 
     Set<String> createdHandlers = new HashSet<>();
 
