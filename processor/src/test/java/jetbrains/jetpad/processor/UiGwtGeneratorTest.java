@@ -105,6 +105,10 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     assertEquals("model translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/mappers/SameHandlerMultipleFields.generated").toFile()),
         mapperOutputStream.toString());
+
+    assertEquals("handler translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/handlers/SameHandlerMultipleFields.generated").toFile()),
+        eventHandlerStream.toString());
   }
 
   @Test
@@ -130,6 +134,10 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     assertEquals("model translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/mappers/EventsTest.generated").toFile()),
         mapperOutputStream.toString());
+
+    assertEquals("handler translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/handlers/EventsTest.generated").toFile()),
+        eventHandlerStream.toString());
   }
 
 
@@ -156,6 +164,10 @@ public class UiGwtGeneratorTest extends BaseTestCase {
     assertEquals("model translated correctly",
         FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/mappers/Bindings.generated").toFile()),
         mapperOutputStream.toString());
+
+    assertEquals("handler translated correctly",
+        FileUtils.readFileToString(Paths.get("src/test/java/jetbrains/jetpad/processor/resources/out/handlers/Bindings.generated").toFile()),
+        eventHandlerStream.toString());
   }
 
   @Test

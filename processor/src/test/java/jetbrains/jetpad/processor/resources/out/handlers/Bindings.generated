@@ -1,0 +1,4 @@
+package org.jetbrains.jetpad;
+
+public class BindingsEventHandler {
+}
