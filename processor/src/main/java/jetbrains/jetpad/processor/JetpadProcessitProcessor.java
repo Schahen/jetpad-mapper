@@ -84,6 +84,9 @@ public class JetpadProcessitProcessor implements Processor {
       Path mapperResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getMapperName() + ".java");
       writeToResource(mapperResource, mapperStream);
 
+      Path eventsHandlerResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getEventHandler() + ".java");
+      writeToResource(eventsHandlerResource, eventHandlerStream);
+
       Path uiXmlResource = Paths.get(generatedSourcePath, packagePath, uiGwtGenerator.getUiXmlName());
       writeToResource(uiXmlResource, uiXmlOutputStream);
     } catch (ParserConfigurationException e) {

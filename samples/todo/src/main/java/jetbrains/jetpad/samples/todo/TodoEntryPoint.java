@@ -47,7 +47,7 @@ public class TodoEntryPoint implements EntryPoint {
 
 
     TodoExperimentalView view = new TodoExperimentalView();
-    final TodoExperimentalModel experimentalModel = new ModelWithEvents();
+    final TodoExperimentalModel experimentalModel = new TodoExperimentalModel();
 
     experimentalModel.title.set("HEY YO!!!!!");
 
