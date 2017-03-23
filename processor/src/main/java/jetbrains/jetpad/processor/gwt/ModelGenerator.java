@@ -43,7 +43,6 @@ public class ModelGenerator {
         .addModifiers(Modifier.PUBLIC);
 
     if (hasEventsBinded()) {
-      modelClassBuilder.addModifiers(Modifier.ABSTRACT);
     }
 
     Set<String> createdFields = new HashSet<>();
